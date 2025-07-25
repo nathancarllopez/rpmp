@@ -9,16 +9,17 @@ function RouteComponent() {
 }
 
 async function checkHealth() {
-  const url = "http://localhost:3001/server/health";
+  const url = import.meta.env.VITE_BACKEND_URL + "/server/health";
+
+  console.log('fetching from:', url);
+
   const response = await fetch(url, {
     method: "GET"
   });
-
-  console.log(response);
 
   if (!response.ok) {
     throw new Error("failed")
   }
 
-  console.log(response.body);
+  console.log(response);
 }
