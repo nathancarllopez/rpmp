@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { Constants, type Json } from "./database.types";
 import type {
   Database,
@@ -150,7 +151,7 @@ interface NavbarLinkInfo {
 }
 export interface NavbarInfo extends NavbarLinkInfo {
   hasPermission: string[];
-  icon: React.ReactNode;
+  icon: ReactNode;
   sublinks?: NavbarLinkInfo[];
 }
 
