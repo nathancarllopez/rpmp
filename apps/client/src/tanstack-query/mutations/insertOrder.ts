@@ -8,10 +8,7 @@ export function useInsertOrderHistoryMutation() {
   return useMutation({
     mutationFn: insertOrderHistory,
     onSuccess: (data) =>
-      queryClient.setQueryData(["orderHistory"], (curr: OrderHistoryRow[]) => [
-        data,
-        ...curr,
-      ]),
+      queryClient.setQueryData(["orderHistory"], (curr: OrderHistoryRow[] = []) => [data, ...curr]),
   });
 }
 
