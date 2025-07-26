@@ -9,7 +9,7 @@
     },
     "./types": {
       "types": "./src/types.ts",
-      "default": "./dist/types.j"
+      "default": "./dist/types.js"
     }
   },
   "scripts": {
