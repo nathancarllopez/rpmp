@@ -9,14 +9,21 @@
     "start": "node -r esbuild-register ./src/index.ts"
   },
   "devDependencies": {
+    "@repo/global-types": "^0.0.0",
     "@repo/typescript-config": "^0.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/pdfkit": "^0.17.2",
     "esbuild-register": "^3.6.0",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "supabase": "^2.31.8"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.52.1",
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "dotenv": "^16.0.3",
+    "express": "^5.1.0",
+    "pdfkit": "^0.17.1",
+    "pdfkit-table": "^0.1.99"
   }
 }

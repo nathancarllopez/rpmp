@@ -3,16 +3,26 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./supaTypes": {
-      "types": "./src/supaTypes.ts",
-      "default": "./dist/supaTypes.js"
+    "./supa-types": {
+      "types": "./src/supa-types.ts",
+      "default": "./dist/supa-types.js"
+    },
+    "./types": {
+      "types": "./src/types.ts",
+      "default": "./dist/types.j"
     }
   },
   "scripts": {
     "dev": "tsc --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "gen-types": "dotenv -e .env -- bash -c 'npx supabase gen types typescript --project-id $SUPABASE_PROJECT_REF --schema public > src/database.types.ts'"
   },
   "devDependencies": {
-    "@repo/typescript-config": "^0.0.0"
+    "@repo/typescript-config": "^0.0.0",
+    "dotenv-cli": "^9.0.0",
+    "supabase": "^2.31.8"
+  },
+  "dependencies": {
+    "type-fest": "^4.41.0"
   }
 }
