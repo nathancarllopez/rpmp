@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Constants, type Json } from "./database.types";
 import type {
   Database,
