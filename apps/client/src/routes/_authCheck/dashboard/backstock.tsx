@@ -15,12 +15,12 @@ import {
 } from "@mantine/core";
 import { backstockOptions } from "../../../tanstack-query/queries/backstock";
 import LoadingScreen from "../../../components/misc/LoadingScreen";
-import type { SelectedBackstockRow, UpdateBackstockInfo } from "@repo/global-types/types";
 import { useUpdateBackstockMutation } from "../../../tanstack-query/mutations/updateBackstock";
 import NavigationBlockAlert from "../../../components/misc/NavigationBlockAlert";
 import AddNewModal from "../../../components/backstock/AddNewModal";
 import EditSelectedModal from "../../../components/backstock/EditSelectedModal";
 import BackstockTable from "../../../components/backstock/BackstockTable";
+import type { SelectedBackstockRow, UpdateBackstockInfo } from "../../../types/types";
 
 export const Route = createFileRoute("/_authCheck/dashboard/backstock")({
   loader: ({ context: { queryClient } }) => {

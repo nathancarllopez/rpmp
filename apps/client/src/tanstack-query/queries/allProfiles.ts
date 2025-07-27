@@ -1,7 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "../../supabase/client";
-import type { ProfileRow } from "@repo/global-types/types";
 import { snakeToCamel } from "../../util/key-converters";
+import type { ProfileRow } from "../../types/types";
 
 export function allProfilesOptions() {
   return queryOptions({

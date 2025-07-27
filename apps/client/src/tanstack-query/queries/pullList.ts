@@ -1,7 +1,7 @@
-import type { PullListRow } from "@repo/global-types/types";
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "../../supabase/client";
 import { snakeToCamel } from "../../util/key-converters";
+import type { PullListRow } from "../../types/types";
 
 export function pullListOptions() {
   return queryOptions({

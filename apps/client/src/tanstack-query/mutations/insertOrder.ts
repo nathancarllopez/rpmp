@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../QueryClientProvider";
-import type { InsertOrderHistoryRow, OrderHistoryRow } from "@repo/global-types/types";
 import { supabase } from "../../supabase/client";
 import { snakeToCamel } from "../../util/key-converters";
+import type { InsertOrderHistoryRow, OrderHistoryRow } from "../../types/types";
 
 export function useInsertOrderHistoryMutation() {
   return useMutation({

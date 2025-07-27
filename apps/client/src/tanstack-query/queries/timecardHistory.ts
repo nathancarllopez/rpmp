@@ -1,7 +1,7 @@
-import type { TimecardHistoryRow } from "@repo/global-types/types";
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "../../supabase/client";
 import { snakeToCamel } from "../../util/key-converters";
+import type { TimecardHistoryRow } from "../../types/types";
 
 export function timecardHistoryOptions() {
   return queryOptions({

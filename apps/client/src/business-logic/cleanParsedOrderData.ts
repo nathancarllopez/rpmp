@@ -1,4 +1,4 @@
-import type { ContainerSize, Order } from "@repo/global-types/types";
+import type { ContainerSize, Order } from "../types/types";
 
 export function cleanParsedOrderData(
   rows: Record<string, string>[],

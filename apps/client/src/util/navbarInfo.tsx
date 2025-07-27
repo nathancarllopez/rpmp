@@ -1,4 +1,3 @@
-import type { NavbarInfo } from "@repo/global-types/types";
 import {
   IconBooks,
   // IconMeat,
@@ -8,6 +7,7 @@ import {
   IconToolsKitchen3,
   IconUsers,
 } from "@tabler/icons-react";
+import type { NavbarInfo } from "../types/types";
 
 export const navbarInfo: NavbarInfo[] = [
   {

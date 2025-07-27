@@ -1,8 +1,7 @@
-import type { ProfileRow, SettingsRow } from "@repo/global-types/types";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../QueryClientProvider";
-import type { InsertProfileRow, CreatedUserInfo, NewUserInfo } from "@repo/global-types/types";
 import { camelToSnake, snakeToCamel } from "../../util/key-converters";
+import type { CreatedUserInfo, InsertProfileRow, NewUserInfo, ProfileRow, SettingsRow } from "../../types/types";
 
 export function useCreateUserMutation(invokerId: string) {
   return useMutation({

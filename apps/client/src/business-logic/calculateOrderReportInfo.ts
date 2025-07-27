@@ -1,4 +1,4 @@
-import type { AllBackstockRow, IngredientAmounts, OrderReportInfo, ProteinRow, ProteinWeights, PullListRow, VeggieCarbInfoRow } from "@repo/global-types/types";
+import type { AllBackstockRow, IngredientAmounts, OrderReportInfo, ProteinRow, ProteinWeights, PullListRow, VeggieCarbInfoRow } from "../types/types";
 import { chooseBackstockWeights } from "./chooseBackstockWeights";
 
 export function calculateOrderReportInfo(

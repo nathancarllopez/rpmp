@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { supabase } from "../../supabase-client";
-import type { InsertSettingsRow } from "@repo/global-types/types";
+import { InsertSettingsRow } from "../../types/types";
 
 export default async function createUser(
   req: Request,

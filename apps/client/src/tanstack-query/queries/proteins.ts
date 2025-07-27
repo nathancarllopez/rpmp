@@ -1,7 +1,7 @@
-import type { ProteinRow } from "@repo/global-types/types";
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "../../supabase/client";
 import { snakeToCamel } from "../../util/key-converters";
+import type { ProteinRow } from "../../types/types";
 
 export function proteinsOptions() {
   return queryOptions({

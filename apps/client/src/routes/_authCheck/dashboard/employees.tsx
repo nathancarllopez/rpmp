@@ -23,9 +23,9 @@ import {
 import { allProfilesOptions } from "../../../tanstack-query/queries/allProfiles";
 import { rolesOptions } from "../../../tanstack-query/queries/roles";
 import LoadingScreen from "../../../components/misc/LoadingScreen";
-import type { ProfileRow } from "@repo/global-types/types";
 import CreateModal from "../../../components/employees/CreateModal";
 import ViewEditProfile from "../../../components/home/ViewEditProfile";
+import type { ProfileRow } from "../../../types/types";
 
 export const Route = createFileRoute('/_authCheck/dashboard/employees')({
   loader: ({ context: { queryClient } }) => {

@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import PDFDocumentWithTables from "pdfkit-table";
-import type { Meal, Order, OrderError, OrderStatistics, PullListDatas } from "@repo/global-types/types";
-import { containerSizes } from "@repo/global-types/types";
+import { containerSizes, Meal, Order, OrderError, OrderStatistics, PullListDatas } from "../../types/types";
 
 export default async function generateReport(
   req: Request,

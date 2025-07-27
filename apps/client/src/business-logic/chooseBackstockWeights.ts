@@ -1,4 +1,4 @@
-import type { AllBackstockRow } from "@repo/global-types/types";
+import type { AllBackstockRow } from "../types/types";
 
 export function chooseBackstockWeights(
   allBackstock: AllBackstockRow[],

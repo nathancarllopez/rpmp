@@ -1,7 +1,7 @@
-import type { FlavorRow } from "@repo/global-types/types";
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "../../supabase/client";
 import { snakeToCamel } from "../../util/key-converters";
+import type { FlavorRow } from "../../types/types";
 
 export function flavorsOptions() {
   return queryOptions({

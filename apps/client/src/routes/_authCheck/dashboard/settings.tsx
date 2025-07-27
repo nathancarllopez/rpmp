@@ -17,9 +17,9 @@ import { settingsOptions } from "../../../tanstack-query/queries/settings";
 import LoadingScreen from "../../../components/misc/LoadingScreen";
 import { useUpdateSettingsMutation } from "../../../tanstack-query/mutations/updateSettings";
 import { navbarInfo } from "../../../util/navbarInfo";
-import type { UpdateSettingsInfo } from "@repo/global-types/types";
 import FormWithDisable from "../../../components/misc/FormWithDisable";
 import { camelToSnake } from "../../../util/key-converters";
+import type { UpdateSettingsInfo } from "../../../types/types";
 
 export const Route = createFileRoute('/_authCheck/dashboard/settings')({
   loader: ({ context: { userId, queryClient } }) => {

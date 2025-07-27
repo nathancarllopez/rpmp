@@ -21,9 +21,9 @@ import { useMediaQuery } from "@mantine/hooks";
 import { getRouteApi } from "@tanstack/react-router";
 import { rolesOptions } from "../../tanstack-query/queries/roles";
 import { useCreateUserMutation } from "../../tanstack-query/mutations/createUser";
-import type { NewUserInfo } from "@repo/global-types/types";
 import FormWithDisable from "../misc/FormWithDisable";
 import Subtitle from "../misc/Subtitle";
+import type { NewUserInfo } from "../../types/types";
 
 interface CreateModalProps {
   opened: boolean;

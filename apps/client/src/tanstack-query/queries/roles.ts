@@ -1,7 +1,7 @@
-import type { RoleInfoRow } from "@repo/global-types/types";
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "../../supabase/client";
 import { snakeToCamel } from "../../util/key-converters";
+import type { RoleInfoRow } from "../../types/types";
 
 export function rolesOptions() {
   return queryOptions({

@@ -8,7 +8,7 @@ import { Badge, Checkbox, ScrollArea, Table } from "@mantine/core";
 
 import BackstockHeader from "./BackstockHeader";
 import classes from "./BackstockTable.module.css";
-import type { AllBackstockRow } from "@repo/global-types/types";
+import type { AllBackstockRow } from "../../types/types";
 
 const BACKSTOCK_HEADERS: {
   key: number;

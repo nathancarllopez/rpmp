@@ -3,7 +3,7 @@ import NavLinkLabel from "./NavLinkLabel";
 import { Link } from "@tanstack/react-router";
 import NavLinkChevron from "./NavLinkChevron";
 import { useDisclosure } from "@mantine/hooks";
-import type { NavbarInfo } from "@repo/global-types/types";
+import type { NavbarInfo } from "../../types/types";
 
 interface NavLinkWithSubLinksProps {
   linkInfo: NavbarInfo;

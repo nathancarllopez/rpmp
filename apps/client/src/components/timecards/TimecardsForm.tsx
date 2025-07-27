@@ -3,10 +3,10 @@ import { useMemo, useState } from "react";
 import Timecard from "./Timecard";
 import { useToggle } from "@mantine/hooks";
 import { IconMessageReport } from "@tabler/icons-react";
-import type { TimecardValues } from "@repo/global-types/types";
 import formatTimecardsData from "../../util/formatTimecardsData";
 import fetchTimecardsUrl from "../../api/fetchTimecardsUrl";
 import { startBeforeEnd } from "../../util/timecardValidation";
+import type { TimecardValues } from "../../types/types";
 
 interface TimecardsFormProps {
   timecardsData: TimecardValues[];

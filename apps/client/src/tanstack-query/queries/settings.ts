@@ -1,7 +1,7 @@
-import type { SettingsRow } from "@repo/global-types/types";
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "../../supabase/client";
 import { snakeToCamel } from "../../util/key-converters";
+import type { SettingsRow } from "../../types/types";
 
 export function settingsOptions(userId: string | undefined) {
   if (!userId) {

@@ -1,9 +1,9 @@
 import { Box, Button, Group, Stack } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import type { InsertOrderHistoryRow, OrderReportInfo } from "@repo/global-types/types";
 import { getRouteApi } from "@tanstack/react-router";
 import { useMarkBackstockUnavailableMutation } from "../../tanstack-query/mutations/markBackstockUnavailable";
 import { useInsertOrderHistoryMutation } from "../../tanstack-query/mutations/insertOrder";
+import type { InsertOrderHistoryRow, OrderReportInfo } from "../../types/types";
 
 interface OrderDisplayProps {
   orderReportInfo: OrderReportInfo;

@@ -1,10 +1,10 @@
 import { Box, Button, Group, Paper, Stack, Table, Text } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import type { InsertTimecardHistoryRow, TimecardValues } from "@repo/global-types/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { getRouteApi } from "@tanstack/react-router";
 import { timecardHistoryOptions } from "../../tanstack-query/queries/timecardHistory";
 import { useInsertTimecardHisotryMutation } from "../../tanstack-query/mutations/insertTimecard";
+import type { InsertTimecardHistoryRow, TimecardValues } from "../../types/types";
 
 interface TimecardsDisplayProps {
   timecardsData: TimecardValues[];

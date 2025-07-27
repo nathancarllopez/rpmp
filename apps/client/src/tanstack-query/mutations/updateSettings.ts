@@ -1,8 +1,8 @@
-import type { SettingsRow, UpdateSettingsInfo } from "@repo/global-types/types";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../QueryClientProvider";
 import { supabase } from "../../supabase/client";
 import { snakeToCamel } from "../../util/key-converters";
+import type { SettingsRow, UpdateSettingsInfo } from "../../types/types";
 
 export function useUpdateSettingsMutation(userId: string | undefined) {
   if (!userId) {

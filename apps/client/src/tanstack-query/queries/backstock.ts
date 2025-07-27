@@ -1,7 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "../../supabase/client";
-import type { AllBackstockRow } from "@repo/global-types/types";
 import { snakeToCamel } from "../../util/key-converters";
+import type { AllBackstockRow } from "../../types/types";
 
 export function backstockOptions() {
   return queryOptions({

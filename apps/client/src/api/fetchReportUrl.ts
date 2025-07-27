@@ -1,4 +1,4 @@
-import type { OrderReportInfo } from "@repo/global-types/types";
+import type { OrderReportInfo } from "../types/types";
 
 export default async function fetchReportUrl(info: OrderReportInfo): Promise<string> {
   const apiUrl = import.meta.env.VITE_BACKEND_URL + "/orders/generate-report";

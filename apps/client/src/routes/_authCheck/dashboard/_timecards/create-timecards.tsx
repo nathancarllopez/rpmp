@@ -6,9 +6,9 @@ import { allProfilesOptions } from "../../../../tanstack-query/queries/allProfil
 import { allProfilePicsOptions } from "../../../../tanstack-query/queries/allProfilePics";
 import { timecardHistoryOptions } from "../../../../tanstack-query/queries/timecardHistory";
 import LoadingScreen from "../../../../components/misc/LoadingScreen";
-import type { TimecardValues } from "@repo/global-types/types";
 import TimecardsForm from "../../../../components/timecards/TimecardsForm";
 import TimecardsDisplay from "../../../../components/timecards/TimecardsDisplay";
+import type { TimecardValues } from "../../../../types/types";
 
 export const Route = createFileRoute(
   "/_authCheck/dashboard/_timecards/create-timecards"

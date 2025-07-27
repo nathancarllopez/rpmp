@@ -1,7 +1,7 @@
-import type { VeggieCarbInfoRow } from "@repo/global-types/types";
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "../../supabase/client";
 import { snakeToCamel } from "../../util/key-converters";
+import type { VeggieCarbInfoRow } from "../../types/types";
 
 export function veggieCarbInfoOptions() {
   return queryOptions({

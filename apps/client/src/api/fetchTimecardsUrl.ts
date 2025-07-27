@@ -1,4 +1,4 @@
-import type { TimecardDisplayValues } from "@repo/global-types/types";
+import type { TimecardDisplayValues } from "../types/types";
 
 export default async function fetchTimecardsUrl(timecards: TimecardDisplayValues[]): Promise<string> {
   const apiUrl =

@@ -2,9 +2,9 @@ import { ActionIcon, Avatar, Badge, Center, Collapse, Fieldset, Group, NumberFor
 import { TimePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { useToggle } from "@mantine/hooks";
-import type { TimecardValues } from "@repo/global-types/types";
 import { IconChevronDown, IconChevronUp, IconRestore } from "@tabler/icons-react";
 import { getDuration, startBeforeEnd } from "../../util/timecardValidation";
+import type { TimecardValues } from "../../types/types";
 
 interface TimecardProps {
   isCollapsed: boolean;

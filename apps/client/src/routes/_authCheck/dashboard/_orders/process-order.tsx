@@ -9,12 +9,12 @@ import { backstockOptions } from "../../../../tanstack-query/queries/backstock";
 import { veggieCarbInfoOptions } from "../../../../tanstack-query/queries/veggieCarbInfo";
 import { pullListOptions } from "../../../../tanstack-query/queries/pullList";
 import LoadingScreen from "../../../../components/misc/LoadingScreen";
-import type { OrderReportInfo } from "@repo/global-types/types";
 import NavigationBlockAlert from "../../../../components/misc/NavigationBlockAlert";
 import { OrderDropzone } from "../../../../components/orders/OrderDropzone";
 import { OrderEditor } from "../../../../components/orders/OrderEditor";
 import ReportDisplay from "../../../../components/orders/ReportDisplay";
 import { resetBackstock } from "../../../../business-logic/resetBackstock";
+import type { OrderReportInfo } from "../../../../types/types";
 
 export const Route = createFileRoute(
   "/_authCheck/dashboard/_orders/process-order"

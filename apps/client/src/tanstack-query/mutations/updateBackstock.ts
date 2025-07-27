@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../QueryClientProvider";
-import type { UpdateBackstockInfo } from "@repo/global-types/types";
 import { supabase } from "../../supabase/client";
+import type { UpdateBackstockInfo } from "../../types/types";
 
 export function useUpdateBackstockMutation() {
   return useMutation({

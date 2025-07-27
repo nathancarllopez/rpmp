@@ -1,4 +1,4 @@
-import type { TimecardDisplayValues, TimecardValues } from "@repo/global-types/types";
+import type { TimecardDisplayValues, TimecardValues } from "../types/types";
 
 export default function formatTimecardsData(timecardsData: TimecardValues[]): TimecardDisplayValues[] {
   const formatAmount = (amount: number | "") => `$${Number(amount).toFixed(2)}`;

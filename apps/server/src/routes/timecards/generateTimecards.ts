@@ -1,6 +1,6 @@
-import { TimecardDisplayValues } from "@repo/global-types/types";
 import { Request, Response } from "express";
 import PDFDocumentWithTables from "pdfkit-table";
+import { TimecardDisplayValues } from "../../types/types";
 
 export default async function generateTimecards(
   req: Request,

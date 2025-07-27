@@ -23,8 +23,8 @@ import { Link } from "@tanstack/react-router";
 import { notifications } from "@mantine/notifications";
 import ProfilePic from "./ProfilePic";
 import RoleSelect from "./RoleSelect";
-import type { ProfileRow } from "@repo/global-types/types";
 import { useDeleteUserMutation } from "../../tanstack-query/mutations/deleteUser";
+import type { ProfileRow } from "../../types/types";
 
 interface ViewEditProfileProps {
   profileToDisplay: ProfileRow;

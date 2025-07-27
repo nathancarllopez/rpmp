@@ -12,9 +12,9 @@ import { useForm } from "@mantine/form";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { DateInput } from "@mantine/dates";
 import { notifications } from "@mantine/notifications";
-import type { SelectedBackstockRow, UpdateBackstockInfo } from "@repo/global-types/types";
 import { useUpdateBackstockMutation } from "../../tanstack-query/mutations/updateBackstock";
 import FormWithDisable from "../misc/FormWithDisable";
+import type { SelectedBackstockRow, UpdateBackstockInfo } from "../../types/types";
 
 interface EditSelectedModalProps {
   opened: boolean;

@@ -5,12 +5,12 @@ import { notifications } from "@mantine/notifications";
 import { Box, Container, Group, Stack, Text, Title } from "@mantine/core";
 import { Dropzone, MIME_TYPES, type FileWithPath } from "@mantine/dropzone";
 import { IconFileDescription, IconUpload, IconX } from "@tabler/icons-react";
-import type { OrderReportInfo } from "@repo/global-types/types";
 import { orderHeadersOptions } from "../../tanstack-query/queries/orderHeaders";
 import { flavorsOptions } from "../../tanstack-query/queries/flavors";
 import Papa from "papaparse";
 import Subtitle from "../misc/Subtitle";
 import { cleanParsedOrderData } from "../../business-logic/cleanParsedOrderData";
+import type { OrderReportInfo } from "../../types/types";
 
 export interface OrderDropzoneProps {
   setOrderReportInfo: React.Dispatch<React.SetStateAction<OrderReportInfo>>;

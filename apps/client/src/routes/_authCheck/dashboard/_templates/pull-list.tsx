@@ -20,9 +20,9 @@ import { useMemo, useState } from "react";
 import { notifications } from "@mantine/notifications";
 import { pullListOptions } from "../../../../tanstack-query/queries/pullList";
 import LoadingScreen from "../../../../components/misc/LoadingScreen";
-import type { PullListRow } from "@repo/global-types/types";
 import { useUpdatePullListMutation } from "../../../../tanstack-query/mutations/updatePullList";
 import NavigationBlockAlert from "../../../../components/misc/NavigationBlockAlert";
+import type { PullListRow } from "../../../../types/types";
 
 export const Route = createFileRoute(
   "/_authCheck/dashboard/_templates/pull-list"

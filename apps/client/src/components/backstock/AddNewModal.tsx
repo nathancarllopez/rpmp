@@ -21,9 +21,9 @@ import {
 } from "@mantine/core";
 import { useInsertBackstockMutation } from "../../tanstack-query/mutations/insertBackstock";
 import { proteinsAndFlavorsOptions } from "../../tanstack-query/queries/proteinsWithFlavors";
-import type { InsertBackstockRow } from "@repo/global-types/types";
 import FormWithDisable from "../misc/FormWithDisable";
 import { camelToSnake } from "../../util/key-converters";
+import type { InsertBackstockRow } from "../../types/types";
 
 interface AddNewModalProps {
   opened: boolean;

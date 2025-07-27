@@ -3,8 +3,8 @@ import NavLinkLabel from "./NavLinkLabel";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import NavLinkChevron from "./NavLinkChevron";
 import { Link } from "@tanstack/react-router";
-import type { ProfileRow } from "@repo/global-types/types";
 import { profilePicOptions } from "../../tanstack-query/queries/profilePic";
+import type { ProfileRow } from "../../types/types";
 
 interface ProfileNavLinkProps {
   profile: ProfileRow;

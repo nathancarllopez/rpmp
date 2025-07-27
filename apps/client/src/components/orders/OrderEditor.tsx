@@ -16,8 +16,6 @@ import {
   Text,
   Tooltip,
 } from "@mantine/core";
-import type { ContainerSize, Order } from "@repo/global-types/types";
-import type { AllBackstockRow, OrderReportInfo, ProteinRow } from "@repo/global-types/types";
 import { backstockOptions } from "../../tanstack-query/queries/backstock";
 import { proteinsOptions } from "../../tanstack-query/queries/proteins";
 import { veggieCarbInfoOptions } from "../../tanstack-query/queries/veggieCarbInfo";
@@ -26,6 +24,7 @@ import { orderHeadersOptions } from "../../tanstack-query/queries/orderHeaders";
 import { proteinsAndFlavorsOptions } from "../../tanstack-query/queries/proteinsWithFlavors";
 import fetchReportUrl from "../../api/fetchReportUrl";
 import { calculateOrderReportInfo } from "../../business-logic/calculateOrderReportInfo";
+import type { AllBackstockRow, ContainerSize, Order, OrderReportInfo, ProteinRow } from "../../types/types";
 
 type FlavorSelectData =
   | {
