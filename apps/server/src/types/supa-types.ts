@@ -8,7 +8,7 @@ export type Database = MergeDeep<
       Views: {
         all_backstock: {
           Row: {
-            available: boolean;
+            claimed: boolean;
             created_at: string;
             display_color: string | null
             id: number;
@@ -18,19 +18,6 @@ export type Database = MergeDeep<
             sub_name: string | null
             sub_name_label: string | null
             weight: number;
-          }
-        },
-        backstock_view: {
-          Row: {
-            available: boolean;
-            created_at: string;
-            display_color: string;
-            flavor: string;
-            id: number;
-            protein: string;
-            weight: number;
-            protein_label: string;
-            flavor_label: string;
           }
         },
         proteins_with_flavors: {

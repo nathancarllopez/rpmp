@@ -16,7 +16,7 @@ export type Database = {
     Tables: {
       backstock_proteins: {
         Row: {
-          available: boolean
+          claimed: boolean
           created_at: string
           deleted_on: string | null
           flavor: string
@@ -25,7 +25,7 @@ export type Database = {
           weight: number
         }
         Insert: {
-          available?: boolean
+          claimed: boolean
           created_at?: string
           deleted_on?: string | null
           flavor: string
@@ -34,7 +34,7 @@ export type Database = {
           weight: number
         }
         Update: {
-          available?: boolean
+          claimed?: boolean
           created_at?: string
           deleted_on?: string | null
           flavor?: string
@@ -68,7 +68,7 @@ export type Database = {
       }
       backstock_veggie_carb: {
         Row: {
-          available: boolean
+          claimed: boolean
           created_at: string
           deleted_on: string | null
           id: number
@@ -77,7 +77,7 @@ export type Database = {
           weight: number
         }
         Insert: {
-          available: boolean
+          claimed: boolean
           created_at?: string
           deleted_on?: string | null
           id?: number
@@ -86,7 +86,7 @@ export type Database = {
           weight: number
         }
         Update: {
-          available?: boolean
+          claimed?: boolean
           created_at?: string
           deleted_on?: string | null
           id?: number
@@ -414,7 +414,7 @@ export type Database = {
     Views: {
       all_backstock: {
         Row: {
-          available: boolean | null
+          claimed: boolean | null
           created_at: string | null
           display_color: string | null
           id: number | null
@@ -423,20 +423,6 @@ export type Database = {
           name_label: string | null
           sub_name: string | null
           sub_name_label: string | null
-          weight: number | null
-        }
-        Relationships: []
-      }
-      backstock_view: {
-        Row: {
-          available: boolean | null
-          created_at: string | null
-          display_color: string | null
-          flavor: string | null
-          flavor_label: string | null
-          id: number | null
-          protein: string | null
-          protein_label: string | null
           weight: number | null
         }
         Relationships: []
@@ -460,6 +446,7 @@ export type Database = {
           weight: number
           created_at: string
           deleted_on: string
+          claimed: boolean
         }[]
       }
     }
