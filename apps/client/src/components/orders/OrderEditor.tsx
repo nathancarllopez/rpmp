@@ -269,7 +269,7 @@ export function OrderEditor({
 
                     setValueEditedFlags((curr) => {
                       const copy = [...curr];
-                      copy[index].quantity = originalValue === newQuantity;
+                      copy[index].quantity = originalValue !== newQuantity;
 
                       return copy;
                     });
