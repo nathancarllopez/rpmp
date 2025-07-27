@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { Button, Stack, Stepper, Text, Title } from "@mantine/core";
+import { useState } from "react";
+import { Button, Center, Stack, Stepper, Text, Title } from "@mantine/core";
 import { createFileRoute, useBlocker } from "@tanstack/react-router";
 import { orderHeadersOptions } from "../../../../tanstack-query/queries/orderHeaders";
 import { proteinsOptions } from "../../../../tanstack-query/queries/proteins";
@@ -47,9 +47,8 @@ function OrderProcessor() {
       return { ...blank, orderData };
     });
 
-  const processingCompleteRef = useRef(false);
   const { proceed, reset, status } = useBlocker({
-    shouldBlockFn: () => active > 1 && !processingCompleteRef.current,
+    shouldBlockFn: () => active > 1,
     withResolver: true,
   });
 
@@ -61,10 +60,8 @@ function OrderProcessor() {
   const numSteps = Object.keys(stepProps).length;
 
   const toNextStep = () =>
-    setActive((curr) => Math.min(numSteps - 1, curr + 1));
+    setActive((curr) => Math.min(curr + 1, numSteps));
   const toPrevStep = () => setActive((curr) => Math.max(0, curr - 1));
-  const jumpToStep = (step: number) =>
-    setActive(step < 0 ? 0 : step > numSteps - 1 ? numSteps - 1 : step);
 
   return (
     <Stack>
@@ -107,15 +104,17 @@ function OrderProcessor() {
               resetCalculatedInfo={resetCalculatedInfo}
               reportUrl={reportUrl}
               setReportUrl={setReportUrl}
-              jumpToStep={jumpToStep}
-              processingCompleteRef={processingCompleteRef}
+              toNextStep={toNextStep}
+              toPrevStep={toPrevStep}
             />
           ) : (
             <Text>No report url provided</Text>
           )}
         </Stepper.Step>
         <Stepper.Completed>
-          <Text>Order saved and backstock updated!</Text>
+          <Center mt={"md"}>
+            <Title order={3}>Order processing complete!</Title>
+          </Center>
         </Stepper.Completed>
       </Stepper>
 

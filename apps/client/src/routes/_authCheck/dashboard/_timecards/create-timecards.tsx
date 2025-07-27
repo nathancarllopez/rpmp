@@ -110,12 +110,11 @@ function CreateTimecards() {
     form: { label: "Step 1", description: "Add employee info" },
     display: { label: "Step 2", description: "Review timecards" },
     submit: { label: "Step 3", description: "Email timecards" },
-    complete: { label: "Complete", description: "Submit timecards to..." },
   };
   const numSteps = Object.keys(stepProps).length;
 
   const toNextStep = () =>
-    setActive((curr) => Math.min(numSteps - 1, curr + 1));
+    setActive((curr) => Math.min(curr + 1, numSteps));
   const toPrevStep = () => setActive((curr) => Math.max(0, curr - 1));
 
   return (
@@ -152,9 +151,9 @@ function CreateTimecards() {
             CashApp) we can make payments via an API call
           </Text>
         </Stepper.Step>
-        <Stepper.Completed {...stepProps.complete}>
+        <Stepper.Completed>
           <Center mt={"md"}>
-            <Title order={2}>Timecards Complete!</Title>
+            <Title order={3}>Timecards Complete!</Title>
           </Center>
         </Stepper.Completed>
       </Stepper>

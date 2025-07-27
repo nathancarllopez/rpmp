@@ -10,8 +10,8 @@ interface OrderDisplayProps {
   resetCalculatedInfo: () => void;
   reportUrl: string;
   setReportUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
-  jumpToStep: (step: number) => void;
-  processingCompleteRef: React.RefObject<boolean>;
+  toNextStep: () => void;
+  toPrevStep: () => void;
 }
 
 export default function ReportDisplay({
@@ -19,8 +19,8 @@ export default function ReportDisplay({
   resetCalculatedInfo,
   reportUrl,
   setReportUrl,
-  jumpToStep,
-  processingCompleteRef
+  toNextStep,
+  toPrevStep,
 }: OrderDisplayProps) {
   const markBackstockMutation = useMarkBackstockUnavailableMutation();
   const insertOrderHistoryMutation = useInsertOrderHistoryMutation();
@@ -33,7 +33,7 @@ export default function ReportDisplay({
   const handleBackClick = () => {
     resetCalculatedInfo();
     setReportUrl(undefined);
-    jumpToStep(1);
+    toPrevStep();
   };
 
   const handleSaveDownloadClick = () => {
@@ -74,7 +74,7 @@ export default function ReportDisplay({
             title: "Order Saved!",
             message: "The order data has been saved",
           });
-          processingCompleteRef.current = true;
+          toNextStep();
         },
         onError: (error) => {
           console.warn("Error saving order: ", error.message);
