@@ -17,8 +17,10 @@ import {
 import SkeletonDashboard from "../../../components/misc/SkeletonDashboard";
 import ColorSchemeToggle from "../../../components/misc/ColorSchemeToggle";
 import Navbar from "../../../components/navbar/Navbar";
+import { allProfilePicsOptions } from "../../../tanstack-query/queries/allProfilePics";
 
 export const Route = createFileRoute("/_authCheck/dashboard")({
+  loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(allProfilePicsOptions()),
   pendingComponent: SkeletonDashboard,
   component: Dashboard,
 });

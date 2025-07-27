@@ -25,7 +25,7 @@ async function getAllProfiles(): Promise<ProfileRow[]> {
     throw error;
   }
 
-  const profiles = data.map((profile) => snakeToCamel<ProfileRow>(profile));
+  const profiles: ProfileRow[] = data.map((profile) => snakeToCamel<ProfileRow>(profile));
 
   return profiles;
 }

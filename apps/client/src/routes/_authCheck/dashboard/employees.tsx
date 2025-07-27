@@ -5,7 +5,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import {
   ActionIcon,
-  Alert,
   Button,
   Center,
   Group,
@@ -15,7 +14,6 @@ import {
 } from "@mantine/core";
 import {
   IconArrowRight,
-  IconInfoCircle,
   IconSearch,
   IconX,
   IconZoomExclamation,
@@ -26,10 +24,12 @@ import LoadingScreen from "../../../components/misc/LoadingScreen";
 import CreateModal from "../../../components/employees/CreateModal";
 import ViewEditProfile from "../../../components/home/ViewEditProfile";
 import type { ProfileRow } from "../../../types/types";
+import { allProfilePicsOptions } from "../../../tanstack-query/queries/allProfilePics";
 
 export const Route = createFileRoute('/_authCheck/dashboard/employees')({
   loader: ({ context: { queryClient } }) => {
     queryClient.ensureQueryData(allProfilesOptions());
+    queryClient.ensureQueryData(allProfilePicsOptions());
     queryClient.ensureQueryData(rolesOptions());
   },
   pendingComponent: LoadingScreen,
@@ -43,7 +43,8 @@ function Employees() {
   const [searchValue, setSearchValue] = useState("");
   const atSmallBp = useMediaQuery("(min-width: 48em)");
 
-  const { data: allProfiles, error } = useSuspenseQuery(allProfilesOptions());
+  const { data: allProfiles, error: profilesError } = useSuspenseQuery(allProfilesOptions());
+  const { data: allProfilePics, error: profilePicsError } = useSuspenseQuery(allProfilePicsOptions());
 
   const profiles = useMemo(() => {
     return allProfiles.filter((profile) => {
@@ -58,6 +59,20 @@ function Employees() {
       return profileKeys.some((key) => keyMatchesSearch(key));
     })
   }, [allProfiles, searchValue]);
+
+  const errors = [profilesError, profilePicsError].filter((error) => !!error);
+  if (errors.length > 0) {
+    return (
+      <Stack>
+        <Group>
+          <Title>Employees</Title>
+          <Button disabled ms={"auto"} onClick={open}>
+            Add New
+          </Button>
+        </Group>
+      </Stack>
+    );
+  }
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setSearchValue(event.target.value);
@@ -84,7 +99,6 @@ function Employees() {
         value={searchValue}
         placeholder="Search"
         onChange={handleSearchChange}
-        disabled={!!error}
         leftSection={<IconSearch />}
         rightSection={
           <ActionIcon
@@ -100,19 +114,6 @@ function Employees() {
         }
       />
 
-      {!!error && (
-        <Alert
-          variant="outline"
-          color="red"
-          radius="md"
-          withCloseButton
-          title="Search Error"
-          icon={<IconInfoCircle />}
-        >
-          Something went wrong: {error.message}
-        </Alert>
-      )}
-
       {profiles.length === 0 && (
         <Center mt={"xl"}>
           <Group>
@@ -125,6 +126,7 @@ function Employees() {
       {profiles.map((profile) => (
         <ViewEditProfile
           key={profile.id}
+          profilePicToDisplay={allProfilePics[profile.userId]}
           profileToDisplay={profile}
           showAdminControls={true}
           userId={userId}

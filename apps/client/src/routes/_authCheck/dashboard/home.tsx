@@ -2,16 +2,15 @@ import { Stack, Text, Title } from '@mantine/core';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router'
 import { profileByIdOptions } from '../../../tanstack-query/queries/profileById';
-import { profilePicOptions } from '../../../tanstack-query/queries/profilePic';
 import LoadingScreen from '../../../components/misc/LoadingScreen';
 import ViewEditProfile from '../../../components/home/ViewEditProfile';
+import { allProfilePicsOptions } from '../../../tanstack-query/queries/allProfilePics';
 
 export const Route = createFileRoute('/_authCheck/dashboard/home')({
   loader: ({ context }) => {
     const { userId, queryClient } = context;
     
     queryClient.ensureQueryData(profileByIdOptions(userId));
-    queryClient.ensureQueryData(profilePicOptions(userId));
   },
   pendingComponent: LoadingScreen,
   component: Home,
@@ -20,8 +19,18 @@ export const Route = createFileRoute('/_authCheck/dashboard/home')({
 function Home() {
   const { userId } = Route.useRouteContext();
   const { data: profile, error: profileError } = useSuspenseQuery(profileByIdOptions(userId))
+  const { data: profilePicUrl, error: profilePicError } = useSuspenseQuery({
+    ...allProfilePicsOptions(),
+    select: (data) => {
+      const picUrl = data[userId];
+      if (!picUrl) {
+        throw new Error(`Could not find profile picture url`)
+      };
+      return picUrl;
+    }
+  })
 
-  const errors = [profileError].filter((error) => !!error);
+  const errors = [profileError, profilePicError].filter((error) => !!error);
   if (errors.length > 0) {
     return (
       <Stack>
@@ -41,6 +50,7 @@ function Home() {
 
       <ViewEditProfile
         profileToDisplay={profile}
+        profilePicToDisplay={profilePicUrl}
         showAdminControls={showAdminControls}
         userId={userId}
       />

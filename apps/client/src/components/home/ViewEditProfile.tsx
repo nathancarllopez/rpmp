@@ -28,12 +28,14 @@ import type { ProfileRow } from "../../types/types";
 
 interface ViewEditProfileProps {
   profileToDisplay: ProfileRow;
+  profilePicToDisplay: string;
   showAdminControls: boolean;
   userId: string;
 }
 
 export default function ViewEditProfile({
   profileToDisplay,
+  profilePicToDisplay,
   showAdminControls,
   userId,
 }: ViewEditProfileProps) {
@@ -151,7 +153,8 @@ export default function ViewEditProfile({
       <Stack visibleFrom="sm">
         <Group gap={"xl"}>
           <ProfilePic
-            showUpload={desktopFormVisible && isViewingOwnProfile}
+            profilePicUrl={profilePicToDisplay}
+            showUpload={desktopFormVisible}
             userId={profileToDisplay.userId}
           />
 
@@ -266,7 +269,8 @@ export default function ViewEditProfile({
 
       <Stack hiddenFrom="sm" gap={"sm"}>
         <ProfilePic
-          showUpload={mobileFormVisible && isViewingOwnProfile}
+          profilePicUrl={profilePicToDisplay}
+          showUpload={mobileFormVisible}
           userId={profileToDisplay.userId}
         />
 

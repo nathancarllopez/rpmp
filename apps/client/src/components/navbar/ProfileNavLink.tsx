@@ -3,8 +3,8 @@ import NavLinkLabel from "./NavLinkLabel";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import NavLinkChevron from "./NavLinkChevron";
 import { Link } from "@tanstack/react-router";
-import { profilePicOptions } from "../../tanstack-query/queries/profilePic";
 import type { ProfileRow } from "../../types/types";
+import { allProfilePicsOptions } from "../../tanstack-query/queries/allProfilePics";
 
 interface ProfileNavLinkProps {
   profile: ProfileRow;
@@ -17,9 +17,11 @@ export default function ProfileNavLink({
   skeletonVisible,
   closeOnMobile,
 }: ProfileNavLinkProps) {
-  const { data: profilePicUrl, error: profilePicError } = useSuspenseQuery(
-    profilePicOptions(profile.userId)
-  );
+  const { userId } = profile;
+  const { data: profilePicUrl, error: profilePicError } = useSuspenseQuery({
+    ...allProfilePicsOptions(),
+    select: (data) => data[userId]
+  });
 
   const Label = () => (
     <NavLinkLabel

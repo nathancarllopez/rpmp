@@ -5,24 +5,23 @@ import {
   type FileWithPath,
 } from "@mantine/dropzone";
 import { notifications } from "@mantine/notifications";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { useUpdateProfilePicMutation } from "../../tanstack-query/mutations/updateProfilePic";
-import { profilePicOptions } from "../../tanstack-query/queries/profilePic";
 
 interface ProfilePicProps {
+  profilePicUrl: string;
   showUpload: boolean;
   userId: string | undefined;
 }
 
-export default function ProfilePic({ showUpload, userId }: ProfilePicProps) {
+export default function ProfilePic({ profilePicUrl, showUpload, userId }: ProfilePicProps) {
   const updateProfilePicMutation = useUpdateProfilePicMutation(userId);
-  const { data, error } = useSuspenseQuery(profilePicOptions(userId));
 
-  if (error) {
-    console.warn("Could not fetch profile pic for this userId:")
-    console.warn(userId);
-
-    throw error;
+  if (!showUpload) {
+    return (
+      <AspectRatio ratio={1} w={{ base: "100%", sm: "33%" }}>
+        <Image src={profilePicUrl} radius={"50%"} />
+      </AspectRatio>
+    );
   }
 
   const handlePicDrop = async (files: FileWithPath[]) => {
@@ -48,37 +47,29 @@ export default function ProfilePic({ showUpload, userId }: ProfilePicProps) {
   };
 
   return (
-    <>
-      {showUpload ? (
-        <Dropzone
-          onDrop={handlePicDrop}
-          onReject={() =>
-            notifications.show({
-              withCloseButton: true,
-              color: "red",
-              title: "Upload Failed",
-              message: "Please upload an image file",
-            })
-          }
-          accept={IMAGE_MIME_TYPE}
-          radius={"50%"}
-          w={{ base: "100%", sm: "33%" }}
-          p={0}
-        >
-          <AspectRatio ratio={1}>
-            <Image src={data} radius={"50%"} />
-          </AspectRatio>
-          <Overlay radius={"50%"}>
-            <Center h={"100%"}>
-              <Title ta={"center"}>Update Profile Picture</Title>
-            </Center>
-          </Overlay>
-        </Dropzone>
-      ) : (
-        <AspectRatio ratio={1} w={{ base: "100%", sm: "33%" }}>
-          <Image src={data} radius={"50%"} />
-        </AspectRatio>
-      )}
-    </>
+    <Dropzone
+      onDrop={handlePicDrop}
+      onReject={() =>
+        notifications.show({
+          withCloseButton: true,
+          color: "red",
+          title: "Upload Failed",
+          message: "Please upload an image file",
+        })
+      }
+      accept={IMAGE_MIME_TYPE}
+      radius={"50%"}
+      w={{ base: "100%", sm: "33%" }}
+      p={0}
+    >
+      <AspectRatio ratio={1}>
+        <Image src={profilePicUrl} radius={"50%"} />
+      </AspectRatio>
+      <Overlay radius={"50%"}>
+        <Center h={"100%"}>
+          <Title ta={"center"}>Update Profile Picture</Title>
+        </Center>
+      </Overlay>
+    </Dropzone>
   );
 }
