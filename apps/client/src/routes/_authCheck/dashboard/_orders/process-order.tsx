@@ -47,8 +47,9 @@ function OrderProcessor() {
       return { ...blank, orderData };
     });
 
+  console.log(active);
   const { proceed, reset, status } = useBlocker({
-    shouldBlockFn: () => active > 1,
+    shouldBlockFn: () => active === 2,
     withResolver: true,
   });
 

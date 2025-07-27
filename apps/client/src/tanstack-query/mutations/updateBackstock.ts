@@ -16,6 +16,7 @@ async function updateBackstock(updateInfo: UpdateBackstockInfo): Promise<UpdateB
   });
 
   if (error) {
+    console.log(error);
     console.warn("Error updating backstock rows");
     console.warn(error.message);
 
@@ -28,7 +29,8 @@ async function updateBackstock(updateInfo: UpdateBackstockInfo): Promise<UpdateB
     undoInfo[idString] = {
       weight: row.weight,
       created_at: row.created_at,
-      deleted_on: row.deleted_on
+      deleted_on: row.deleted_on,
+      claimed: row.claimed,
     }
 
     return undoInfo;

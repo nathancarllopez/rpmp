@@ -12,7 +12,7 @@ export function useMarkBackstockUnavailableMutation() {
 async function markBackstockUnavailable(usedBackstockIds: Set<number>) {
   const { error: proteinError } = await supabase
     .from("backstock_proteins")
-    .update({ available: false })
+    .update({ claimed: true })
     .in("id", Array.from(usedBackstockIds));
 
   if (proteinError) {
@@ -24,7 +24,7 @@ async function markBackstockUnavailable(usedBackstockIds: Set<number>) {
 
   const { error: veggieCarbError } = await supabase
     .from("backstock_veggie_carb")
-    .update({ available: false })
+    .update({ claimed: true })
     .in("id", Array.from(usedBackstockIds));
 
   if (veggieCarbError) {

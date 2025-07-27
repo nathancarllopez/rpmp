@@ -141,6 +141,7 @@ export interface UpdateBackstockInfo {
     weight: number;
     created_at: string; // timestampz in supabase, new Date().toISOString() here
     deleted_on?: string | null; // Including this property performs a soft delete, i.e., it changes the column in the backstock table, and excluding it ignores that column. The string is a timestampz and null undoes the soft delete
+    claimed: boolean;
   };
 }
 

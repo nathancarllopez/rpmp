@@ -55,7 +55,7 @@ function Backstock() {
       .map((row) => ({
         ...row,
         name: `${row.nameLabel}: ${row.subNameLabel}`,
-        action: row.available ? "edit" : "delete",
+        action: row.claimed ? "delete" : "edit",
       }));
   }, [allBackstock, selectedIds]);
 
@@ -64,12 +64,11 @@ function Backstock() {
 
     setSelectedIds(() => {
       const claimed = new Set<number>();
-      return allBackstock.reduce((claimed, row) => {
-        if (!row.available) {
-          claimed.add(row.id);
-        }
-        return claimed;
-      }, claimed);
+      allBackstock.forEach((row) => {
+        if (row.claimed) claimed.add(row.id)
+      });
+
+      return claimed;
     });
   };
 
@@ -83,7 +82,6 @@ function Backstock() {
     updateBackstockMutation.mutate(undoData, {
       onSuccess: () => {
         setUndoData(null);
-        toggleIsUndoing();
 
         notifications.show({
           withCloseButton: true,

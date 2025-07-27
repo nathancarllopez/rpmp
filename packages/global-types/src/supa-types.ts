@@ -20,19 +20,6 @@ export type Database = MergeDeep<
             weight: number;
           }
         },
-        backstock_view: {
-          Row: {
-            available: boolean;
-            created_at: string;
-            display_color: string;
-            flavor: string;
-            id: number;
-            protein: string;
-            weight: number;
-            protein_label: string;
-            flavor_label: string;
-          }
-        },
         proteins_with_flavors: {
           Row: {
             flavor_labels: string[];

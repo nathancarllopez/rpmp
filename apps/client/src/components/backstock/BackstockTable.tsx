@@ -20,7 +20,7 @@ const BACKSTOCK_HEADERS: {
   { key: 1, label: "Flavor", sortBy: "subName", visibleFrom: undefined },
   { key: 2, label: "Weight", sortBy: "weight", visibleFrom: undefined },
   { key: 3, label: "Date Added", sortBy: "createdAt", visibleFrom: "sm" },
-  { key: 4, label: "Claimed", sortBy: "available", visibleFrom: "sm" },
+  { key: 4, label: "Claimed", sortBy: "claimed", visibleFrom: "sm" },
 ];
 
 interface BackstockTableProps {
@@ -35,7 +35,7 @@ export default function BackstockTable({
   setSelectedIds,
 }: BackstockTableProps) {
   const [scrolled, setScrolled] = useState(false);
-  const [sortBy, setSortBy] = useState<keyof AllBackstockRow>("available");
+  const [sortBy, setSortBy] = useState<keyof AllBackstockRow>("claimed");
   const [reverseSort, setReverseSort] = useState(false);
   const atSmallBp = useMediaQuery("(min-width: 48em)");
 
@@ -44,7 +44,7 @@ export default function BackstockTable({
     const getValue = (row: AllBackstockRow, key: keyof AllBackstockRow) => {
       if (key === "createdAt") return new Date(row.createdAt).getTime();
       if (key === "weight") return row.weight;
-      if (key === "available") return Number(row.available);
+      if (key === "claimed") return Number(row.claimed);
       return row[key];
     };
 
@@ -67,8 +67,10 @@ export default function BackstockTable({
           );
         } else if (key === "createdAt") {
           compare = Number(getValue(rowA, key)) - Number(getValue(rowB, key));
-        } else if (key === "weight" || key === "available") {
+        } else if (key === "weight") {
           compare = Number(getValue(rowA, key)) - Number(getValue(rowB, key));
+        } else if (key === "claimed") {
+          compare = Number(getValue(rowB, key)) - Number(getValue(rowA, key));
         } else {
           compare = String(getValue(rowA, key)).localeCompare(
             String(getValue(rowB, key))
@@ -138,7 +140,7 @@ export default function BackstockTable({
           <>
             <Table.Td>{new Date(row.createdAt).toLocaleDateString()}</Table.Td>
             <Table.Td>
-              {row.available ? null : <IconCheck size={15} />}
+              {row.claimed ? <IconCheck size={15} /> : null}
             </Table.Td>
           </>
         )}

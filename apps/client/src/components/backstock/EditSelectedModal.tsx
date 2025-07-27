@@ -1,5 +1,7 @@
 import {
   Badge,
+  Center,
+  Checkbox,
   CloseButton,
   Group,
   Modal,
@@ -71,6 +73,15 @@ export default function EditSelectedModal({
         />
       </Table.Td>
       <Table.Td>
+        <Center>
+          <Checkbox
+            disabled={item.action === "delete"}
+            key={form.key(`selectedRows.${index}.claimed`)}
+            {...form.getInputProps(`selectedRows.${index}.claimed`, { type: "checkbox" })}
+          />
+        </Center>
+      </Table.Td>
+      <Table.Td>
         <SegmentedControl
           data={[
             {
@@ -96,22 +107,23 @@ export default function EditSelectedModal({
   const handleSubmit = async (values: {
     selectedRows: SelectedBackstockRow[];
   }) => {
-    console.log(values.selectedRows);
+    const backstockInfo = values.selectedRows.reduce((info, row) => {
+      const idStr = row.id.toString();
 
-    const backstockInfo = values.selectedRows.reduce((acc, curr) => {
-      const idStr = curr.id.toString();
-
-      acc[idStr] = {
-        weight: curr.weight,
-        created_at: new Date(curr.createdAt).toISOString(),
+      info[idStr] = {
+        weight: row.weight,
+        created_at: new Date(row.createdAt).toISOString(),
+        claimed: row.claimed
       };
 
-      if (curr.action === "delete") {
-        acc[idStr].deleted_on = new Date().toISOString();
+      if (row.action === "delete") {
+        info[idStr].deleted_on = new Date().toISOString();
       }
 
-      return acc;
+      return info;
     }, {} as UpdateBackstockInfo);
+
+    console.log(backstockInfo);
 
     updateBackstockMutation.mutate(backstockInfo, {
       onSuccess: (data: UpdateBackstockInfo) => {
@@ -163,6 +175,7 @@ export default function EditSelectedModal({
               <Table.Th></Table.Th>
               <Table.Th ta={"center"}>Weight</Table.Th>
               <Table.Th ta={"center"}>Date Added</Table.Th>
+              <Table.Th ta={"center"}>Claimed</Table.Th>
               <Table.Th ta={"center"}>Action</Table.Th>
             </Table.Tr>
           </Table.Thead>
