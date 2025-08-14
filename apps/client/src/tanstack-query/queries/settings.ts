@@ -29,7 +29,7 @@ async function getSettingsById(userId: string): Promise<SettingsRow> {
     throw error;
   }
 
-  const settings = snakeToCamel<SettingsRow>(data);
+  const settings: SettingsRow = snakeToCamel<SettingsRow>(data);
 
   return settings;
 }

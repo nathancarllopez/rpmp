@@ -1,3 +1,7 @@
+/**
+ * Just used for testing, should be deleted or not included in production
+ */
+
 import { supabase } from "../supabase/client";
 import { queryClient } from "../tanstack-query/QueryClientProvider";
 

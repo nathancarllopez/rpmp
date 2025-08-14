@@ -3,10 +3,10 @@ import { useMemo, useState } from "react";
 import Timecard from "./Timecard";
 import { useToggle } from "@mantine/hooks";
 import { IconMessageReport } from "@tabler/icons-react";
-import formatTimecardsData from "../../util/formatTimecardsData";
 import fetchTimecardsUrl from "../../api/fetchTimecardsUrl";
-import { startBeforeEnd } from "../../util/timecardValidation";
 import type { TimecardValues } from "../../types/types";
+import { validateTimecards } from "../../business-logic/timecards/timecardValidation";
+import { formatTimecardsData } from "../../business-logic/timecards/formatTimecardsData";
 
 interface TimecardsFormProps {
   timecardsData: TimecardValues[];
@@ -126,93 +126,4 @@ export default function TimecardsForm({
       })}
     </Stack>
   );
-}
-
-function validateTimecards(
-  timecardsData: TimecardValues[]
-): Record<string, string>[] | null {
-  let errorsFound = false;
-  const validationErrors = timecardsData.map((timecard) => {
-    const errors: Record<string, string> = {};
-    const {
-      sundayStart,
-      sundayEnd,
-      mondayStart,
-      mondayEnd,
-      drivingStart,
-      drivingEnd,
-      route1,
-      route2,
-      miscDescription,
-      miscAmount,
-      miscPayCode,
-    } = timecard;
-
-    const timePairs = [
-      [sundayStart, sundayEnd, "sunday"],
-      [mondayStart, mondayEnd, "monday"],
-      [drivingStart, drivingEnd, "driving"],
-    ];
-    const missingMessage = "Both times need to be entered";
-    timePairs.forEach(([start, end, keyPrefix]) => {
-      const wrongOrderMessage: string | null = startBeforeEnd(start, end);
-      if (wrongOrderMessage !== null) {
-        errorsFound = true;
-        errors[keyPrefix + "Start"] = wrongOrderMessage;
-        errors[keyPrefix + "End"] = wrongOrderMessage;
-      }
-
-      if (!!start !== !!end) {
-        errorsFound = true;
-        if (!start) {
-          errors[keyPrefix + "Start"] = missingMessage;
-        } else {
-          errors[keyPrefix + "End"] = missingMessage;
-        }
-      }
-    });
-
-    const routes = [route1, route2];
-    routes.forEach((route, index) => {
-      if (route && (!drivingStart || !drivingEnd)) {
-        errorsFound = true;
-        errors[`route${index + 1}`] = "Enter driving start and end time";
-      }
-    });
-
-    const misc = [
-      {
-        value: miscDescription,
-        others: [miscAmount, miscPayCode],
-        key: "miscDescription",
-        message: "Enter payment description",
-      },
-      {
-        value: miscAmount,
-        others: [miscDescription, miscPayCode],
-        key: "miscAmount",
-        message: "Enter payment amount",
-      },
-      {
-        value: miscPayCode,
-        others: [miscAmount, miscDescription],
-        key: "miscPayCode",
-        message: "Enter pay code",
-      },
-    ];
-    misc.forEach(({ value, others, key, message }) => {
-      if (!value && others.some((other) => !!other)) {
-        errorsFound = true;
-        errors[key] = message;
-      }
-    });
-
-    return errors;
-  });
-
-  if (errorsFound) {
-    return validationErrors;
-  }
-
-  return null;
 }

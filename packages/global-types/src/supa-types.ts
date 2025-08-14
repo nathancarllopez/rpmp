@@ -8,7 +8,7 @@ export type Database = MergeDeep<
       Views: {
         all_backstock: {
           Row: {
-            available: boolean;
+            claimed: boolean;
             created_at: string;
             display_color: string | null
             id: number;
@@ -31,6 +31,19 @@ export type Database = MergeDeep<
               label: string,
             }[];
           }
+        },
+        shop_sheet_template: {
+          Row: {
+            label: string
+            location_in_store: string | null
+            name: string
+            price: number
+            purchase_label: string | null
+            purchase_size: number | null
+            shop_display_order: number
+            shop_label: string | null
+            store_name: string
+          }
         }
       }
     }
@@ -48,12 +61,23 @@ export type SupaProteinWithFlavorsRow = Database["public"]["Views"]["proteins_wi
 export type SupaPullListRow = Database["public"]["Tables"]["pull_list"]["Row"];
 export type SupaRoleInfoRow = Database["public"]["Tables"]["role_info"]["Row"];
 export type SupaTimecardHistoryRow = Database["public"]["Tables"]["timecards_history"]["Row"];
-export type SupaVeggieCarbInfoRow = Database["public"]["Tables"]["veggie_carb_info"]["Row"];
+export type SupaVeggieCarbInfoRow = Database["public"]["Tables"]["veggies_carbs"]["Row"];
+export type SupaStoreInfoRow = Database["public"]["Tables"]["store_info"]["Row"]
+export type SupaShopTemplateRow = Database["public"]["Views"]["shop_sheet_template"]["Row"]
+export type SupaCookSheetSectionsRow = Database["public"]["Tables"]["cook_sheet_sections"]["Row"]
 
-
-export type CamelCase<S extends string> = S extends `${infer P}_${infer R}`
+type CamelCase<S extends string> = S extends `${infer P}_${infer R}`
   ? `${P}${Capitalize<CamelCase<R>>}`
   : S;
-export type ToCamelCase<T> = {
-  [K in keyof T as CamelCase<K & string>]: T[K]
-}
+
+// E is a map of exceptions
+export type ToCamelCase<T, E extends Record<string, any> = {}> = {
+  [K in keyof T as CamelCase<K & string>]:
+    CamelCase<K & string> extends keyof E
+      ? E[CamelCase<K & string>]
+      : T[K] extends Array<infer U>
+        ? Array<ToCamelCase<U, E>>
+        : T[K] extends object
+          ? ToCamelCase<T[K], E>
+          : T[K];
+};

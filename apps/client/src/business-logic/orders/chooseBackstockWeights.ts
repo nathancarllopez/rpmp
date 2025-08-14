@@ -1,4 +1,4 @@
-import type { AllBackstockRow } from "../types/types";
+import type { AllBackstockRow } from "../../types/types";
 
 export function chooseBackstockWeights(
   allBackstock: AllBackstockRow[],
@@ -7,7 +7,7 @@ export function chooseBackstockWeights(
   weight: number
 ): AllBackstockRow[] | null {
   const validBackstock = allBackstock.filter((row) => {
-    let goodRow = row.available && row.weight <= weight && row.name === name;
+    let goodRow = !row.claimed && row.weight <= weight && row.name === name;
 
     if (subName) {
       goodRow = goodRow && row.subName === subName;

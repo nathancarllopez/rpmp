@@ -7,18 +7,14 @@ import type { InsertOrderHistoryRow, OrderReportInfo } from "../../types/types";
 
 interface OrderDisplayProps {
   orderReportInfo: OrderReportInfo;
-  resetCalculatedInfo: () => void;
   reportUrl: string;
-  setReportUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
   toNextStep: () => void;
   toPrevStep: () => void;
 }
 
 export default function ReportDisplay({
   orderReportInfo,
-  resetCalculatedInfo,
   reportUrl,
-  setReportUrl,
   toNextStep,
   toPrevStep,
 }: OrderDisplayProps) {
@@ -29,12 +25,6 @@ export default function ReportDisplay({
   if (userId === null) {
     throw new Error("UserId missing in ReportDisplay");
   }
-
-  const handleBackClick = () => {
-    resetCalculatedInfo();
-    setReportUrl(undefined);
-    toPrevStep();
-  };
 
   const handleSaveDownloadClick = () => {
     let noBackstockError = true;
@@ -92,7 +82,7 @@ export default function ReportDisplay({
   return (
     <Stack mt={"md"}>
       <Group grow>
-        <Button onClick={handleBackClick}>
+        <Button onClick={toPrevStep}>
           Back to Edit
         </Button>
         <Button

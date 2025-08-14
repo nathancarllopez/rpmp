@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.3 (519615d)"
@@ -57,13 +57,6 @@ export type Database = {
             referencedRelation: "proteins"
             referencedColumns: ["name"]
           },
-          {
-            foreignKeyName: "backstock_protein_fkey"
-            columns: ["protein"]
-            isOneToOne: false
-            referencedRelation: "proteins_with_flavors"
-            referencedColumns: ["protein_name"]
-          },
         ]
       }
       backstock_veggie_carb: {
@@ -99,7 +92,7 @@ export type Database = {
             foreignKeyName: "backstock_veggie_carb_veggie_carb_fkey"
             columns: ["veggie_carb"]
             isOneToOne: false
-            referencedRelation: "veggie_carb_info"
+            referencedRelation: "veggies_carbs"
             referencedColumns: ["name"]
           },
         ]
@@ -131,8 +124,75 @@ export type Database = {
         }
         Relationships: []
       }
+      cook_sheet_sections: {
+        Row: {
+          columns: Json[]
+          display_color: string
+          display_order: number
+          id: number
+          label: string
+          name: string
+          page_break_after: boolean
+        }
+        Insert: {
+          columns: Json[]
+          display_color: string
+          display_order: number
+          id?: number
+          label: string
+          name: string
+          page_break_after: boolean
+        }
+        Update: {
+          columns?: Json[]
+          display_color?: string
+          display_order?: number
+          id?: number
+          label?: string
+          name?: string
+          page_break_after?: boolean
+        }
+        Relationships: []
+      }
+      costco_shop: {
+        Row: {
+          display_order: number
+          id: number
+          item_size: number | null
+          item_type: string
+          label: string
+          location_in_store: string | null
+          name: string
+          price: number
+          purchase_label: string | null
+        }
+        Insert: {
+          display_order: number
+          id?: number
+          item_size?: number | null
+          item_type: string
+          label: string
+          location_in_store?: string | null
+          name: string
+          price: number
+          purchase_label?: string | null
+        }
+        Update: {
+          display_order?: number
+          id?: number
+          item_size?: number | null
+          item_type?: string
+          label?: string
+          location_in_store?: string | null
+          name?: string
+          price?: number
+          purchase_label?: string | null
+        }
+        Relationships: []
+      }
       flavors: {
         Row: {
+          base_flavor: string | null
           id: number
           label: string
           name: string
@@ -140,6 +200,7 @@ export type Database = {
           raw_label: string
         }
         Insert: {
+          base_flavor?: string | null
           id?: number
           label: string
           name: string
@@ -147,6 +208,7 @@ export type Database = {
           raw_label: string
         }
         Update: {
+          base_flavor?: string | null
           id?: number
           label?: string
           name?: string
@@ -155,25 +217,61 @@ export type Database = {
         }
         Relationships: []
       }
+      misc_ingredients: {
+        Row: {
+          id: number
+          label: string
+          location_in_store: string | null
+          name: string
+          price: number
+          purchase_label: string | null
+          purchase_size: number | null
+          shop_display_order: number
+          shop_label: string | null
+          store_name: string
+        }
+        Insert: {
+          id?: number
+          label: string
+          location_in_store?: string | null
+          name: string
+          price: number
+          purchase_label?: string | null
+          purchase_size?: number | null
+          shop_display_order: number
+          shop_label?: string | null
+          store_name: string
+        }
+        Update: {
+          id?: number
+          label?: string
+          location_in_store?: string | null
+          name?: string
+          price?: number
+          purchase_label?: string | null
+          purchase_size?: number | null
+          shop_display_order?: number
+          shop_label?: string | null
+          store_name?: string
+        }
+        Relationships: []
+      }
       order_headers: {
         Row: {
           id: number
           label: string
-          miw: number | null
           name: string
           raw_label: string | null
         }
         Insert: {
           id?: number
           label: string
-          miw?: number | null
           name: string
           raw_label?: string | null
         }
         Update: {
           id?: number
           label?: string
-          miw?: number | null
           name?: string
           raw_label?: string | null
         }
@@ -244,34 +342,52 @@ export type Database = {
       }
       proteins: {
         Row: {
-          display_color: string | null
-          flavors: string[] | null
+          display_color: string
+          flavors: Json[]
           id: number
           label: string
           lbs_per: number
+          location_in_store: string | null
           name: string
-          purchasable_quantity: number | null
+          price: number
+          purchase_label: string | null
+          purchase_size: number | null
+          shop_display_order: number
+          shop_label: string | null
           shrink: number
+          store_name: string
         }
         Insert: {
-          display_color?: string | null
-          flavors?: string[] | null
+          display_color: string
+          flavors?: Json[]
           id?: number
           label?: string
           lbs_per: number
+          location_in_store?: string | null
           name: string
-          purchasable_quantity?: number | null
+          price: number
+          purchase_label?: string | null
+          purchase_size?: number | null
+          shop_display_order: number
+          shop_label?: string | null
           shrink?: number
+          store_name: string
         }
         Update: {
-          display_color?: string | null
-          flavors?: string[] | null
+          display_color?: string
+          flavors?: Json[]
           id?: number
           label?: string
           lbs_per?: number
+          location_in_store?: string | null
           name?: string
-          purchasable_quantity?: number | null
+          price?: number
+          purchase_label?: string | null
+          purchase_size?: number | null
+          shop_display_order?: number
+          shop_label?: string | null
           shrink?: number
+          store_name?: string
         }
         Relationships: []
       }
@@ -299,6 +415,42 @@ export type Database = {
           id?: number
           label?: string
           name?: string
+        }
+        Relationships: []
+      }
+      restaurant_depot_shop: {
+        Row: {
+          display_order: number
+          id: number
+          item_size: number | null
+          item_type: string
+          label: string
+          location_in_store: string | null
+          name: string
+          price: number
+          purchase_label: string | null
+        }
+        Insert: {
+          display_order: number
+          id?: number
+          item_size?: number | null
+          item_type: string
+          label: string
+          location_in_store?: string | null
+          name: string
+          price: number
+          purchase_label?: string | null
+        }
+        Update: {
+          display_order?: number
+          id?: number
+          item_size?: number | null
+          item_type?: string
+          label?: string
+          location_in_store?: string | null
+          name?: string
+          price?: number
+          purchase_label?: string | null
         }
         Relationships: []
       }
@@ -359,6 +511,27 @@ export type Database = {
         }
         Relationships: []
       }
+      store_info: {
+        Row: {
+          display_order: number
+          id: number
+          store_label: string
+          store_name: string
+        }
+        Insert: {
+          display_order: number
+          id?: number
+          store_label: string
+          store_name: string
+        }
+        Update: {
+          display_order?: number
+          id?: number
+          store_label?: string
+          store_name?: string
+        }
+        Relationships: []
+      }
       timecards_history: {
         Row: {
           added_by: string
@@ -380,33 +553,102 @@ export type Database = {
         }
         Relationships: []
       }
-      veggie_carb_info: {
+      veggies_carbs: {
         Row: {
           amounts: Json
+          cook_display_order: number | null
+          cook_label: string | null
           id: number
           is_veggie: boolean
           label: string
           lbs_per: number
+          location_in_store: string | null
           name: string
+          price: number | null
+          purchase_label: string | null
+          purchase_size: number | null
+          shop_display_order: number | null
+          shop_label: string | null
+          stats_display_order: number | null
+          store_name: string
           units: string
+          water_multiplier: number | null
         }
         Insert: {
           amounts: Json
+          cook_display_order?: number | null
+          cook_label?: string | null
           id?: number
           is_veggie?: boolean
           label: string
           lbs_per?: number
+          location_in_store?: string | null
           name: string
+          price?: number | null
+          purchase_label?: string | null
+          purchase_size?: number | null
+          shop_display_order?: number | null
+          shop_label?: string | null
+          stats_display_order?: number | null
+          store_name: string
           units: string
+          water_multiplier?: number | null
         }
         Update: {
           amounts?: Json
+          cook_display_order?: number | null
+          cook_label?: string | null
           id?: number
           is_veggie?: boolean
           label?: string
           lbs_per?: number
+          location_in_store?: string | null
           name?: string
+          price?: number | null
+          purchase_label?: string | null
+          purchase_size?: number | null
+          shop_display_order?: number | null
+          shop_label?: string | null
+          stats_display_order?: number | null
+          store_name?: string
           units?: string
+          water_multiplier?: number | null
+        }
+        Relationships: []
+      }
+      walmart_shop: {
+        Row: {
+          display_order: number
+          id: number
+          item_size: number | null
+          item_type: string
+          label: string
+          location_in_store: string | null
+          name: string
+          price: number
+          purchase_label: string | null
+        }
+        Insert: {
+          display_order: number
+          id?: number
+          item_size?: number | null
+          item_type: string
+          label: string
+          location_in_store?: string | null
+          name: string
+          price: number
+          purchase_label?: string | null
+        }
+        Update: {
+          display_order?: number
+          id?: number
+          item_size?: number | null
+          item_type?: string
+          label?: string
+          location_in_store?: string | null
+          name?: string
+          price?: number
+          purchase_label?: string | null
         }
         Relationships: []
       }
@@ -427,13 +669,17 @@ export type Database = {
         }
         Relationships: []
       }
-      proteins_with_flavors: {
+      shop_sheet_template: {
         Row: {
-          flavor_labels: string[] | null
-          flavor_names: string[] | null
-          flavors: Json | null
-          protein_label: string | null
-          protein_name: string | null
+          label: string | null
+          location_in_store: string | null
+          name: string | null
+          price: number | null
+          purchase_label: string | null
+          purchase_size: number | null
+          shop_display_order: number | null
+          shop_label: string | null
+          store_name: string | null
         }
         Relationships: []
       }
@@ -442,11 +688,11 @@ export type Database = {
       update_backstock_rows: {
         Args: { updates: Json }
         Returns: {
-          id: number
-          weight: number
+          claimed: boolean
           created_at: string
           deleted_on: string
-          claimed: boolean
+          id: number
+          weight: number
         }[]
       }
     }

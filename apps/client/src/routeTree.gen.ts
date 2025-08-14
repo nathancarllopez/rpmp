@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TestRouteImport } from './routes/test'
 import { Route as AuthCheckRouteRouteImport } from './routes/_authCheck/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as authResetPasswordRouteImport } from './routes/(auth)/resetPassword'
@@ -16,18 +17,25 @@ import { Route as authLoggedOutRouteImport } from './routes/(auth)/loggedOut'
 import { Route as authChangePasswordRouteImport } from './routes/(auth)/changePassword'
 import { Route as AuthCheckDashboardRouteRouteImport } from './routes/_authCheck/dashboard/route'
 import { Route as AuthCheckDashboardSettingsRouteImport } from './routes/_authCheck/dashboard/settings'
-import { Route as AuthCheckDashboardMenuRouteImport } from './routes/_authCheck/dashboard/menu'
 import { Route as AuthCheckDashboardHomeRouteImport } from './routes/_authCheck/dashboard/home'
 import { Route as AuthCheckDashboardEmployeesRouteImport } from './routes/_authCheck/dashboard/employees'
 import { Route as AuthCheckDashboardBackstockRouteImport } from './routes/_authCheck/dashboard/backstock'
 import { Route as AuthCheckDashboardTimecardsTimecardHistoryRouteImport } from './routes/_authCheck/dashboard/_timecards/timecard-history'
 import { Route as AuthCheckDashboardTimecardsCreateTimecardsRouteImport } from './routes/_authCheck/dashboard/_timecards/create-timecards'
+import { Route as AuthCheckDashboardTemplatesShopSheetRouteImport } from './routes/_authCheck/dashboard/_templates/shop-sheet'
 import { Route as AuthCheckDashboardTemplatesPullListRouteImport } from './routes/_authCheck/dashboard/_templates/pull-list'
+import { Route as AuthCheckDashboardTemplatesCookSheetRouteImport } from './routes/_authCheck/dashboard/_templates/cook-sheet'
 import { Route as AuthCheckDashboardOrdersProcessOrderRouteImport } from './routes/_authCheck/dashboard/_orders/process-order'
 import { Route as AuthCheckDashboardOrdersOrderHistoryRouteImport } from './routes/_authCheck/dashboard/_orders/order-history'
+import { Route as AuthCheckDashboardMenuProteinsRouteImport } from './routes/_authCheck/dashboard/_menu/proteins'
 import { Route as AuthCheckDashboardFinancesStatementHistoryRouteImport } from './routes/_authCheck/dashboard/_finances/statement-history'
 import { Route as AuthCheckDashboardFinancesCalculateStatementRouteImport } from './routes/_authCheck/dashboard/_finances/calculate-statement'
 
+const TestRoute = TestRouteImport.update({
+  id: '/test',
+  path: '/test',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthCheckRouteRoute = AuthCheckRouteRouteImport.update({
   id: '/_authCheck',
   getParentRoute: () => rootRouteImport,
@@ -63,11 +71,6 @@ const AuthCheckDashboardSettingsRoute =
     path: '/settings',
     getParentRoute: () => AuthCheckDashboardRouteRoute,
   } as any)
-const AuthCheckDashboardMenuRoute = AuthCheckDashboardMenuRouteImport.update({
-  id: '/menu',
-  path: '/menu',
-  getParentRoute: () => AuthCheckDashboardRouteRoute,
-} as any)
 const AuthCheckDashboardHomeRoute = AuthCheckDashboardHomeRouteImport.update({
   id: '/home',
   path: '/home',
@@ -97,10 +100,22 @@ const AuthCheckDashboardTimecardsCreateTimecardsRoute =
     path: '/create-timecards',
     getParentRoute: () => AuthCheckDashboardRouteRoute,
   } as any)
+const AuthCheckDashboardTemplatesShopSheetRoute =
+  AuthCheckDashboardTemplatesShopSheetRouteImport.update({
+    id: '/_templates/shop-sheet',
+    path: '/shop-sheet',
+    getParentRoute: () => AuthCheckDashboardRouteRoute,
+  } as any)
 const AuthCheckDashboardTemplatesPullListRoute =
   AuthCheckDashboardTemplatesPullListRouteImport.update({
     id: '/_templates/pull-list',
     path: '/pull-list',
+    getParentRoute: () => AuthCheckDashboardRouteRoute,
+  } as any)
+const AuthCheckDashboardTemplatesCookSheetRoute =
+  AuthCheckDashboardTemplatesCookSheetRouteImport.update({
+    id: '/_templates/cook-sheet',
+    path: '/cook-sheet',
     getParentRoute: () => AuthCheckDashboardRouteRoute,
   } as any)
 const AuthCheckDashboardOrdersProcessOrderRoute =
@@ -113,6 +128,12 @@ const AuthCheckDashboardOrdersOrderHistoryRoute =
   AuthCheckDashboardOrdersOrderHistoryRouteImport.update({
     id: '/_orders/order-history',
     path: '/order-history',
+    getParentRoute: () => AuthCheckDashboardRouteRoute,
+  } as any)
+const AuthCheckDashboardMenuProteinsRoute =
+  AuthCheckDashboardMenuProteinsRouteImport.update({
+    id: '/_menu/proteins',
+    path: '/proteins',
     getParentRoute: () => AuthCheckDashboardRouteRoute,
   } as any)
 const AuthCheckDashboardFinancesStatementHistoryRoute =
@@ -130,6 +151,7 @@ const AuthCheckDashboardFinancesCalculateStatementRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/test': typeof TestRoute
   '/dashboard': typeof AuthCheckDashboardRouteRouteWithChildren
   '/changePassword': typeof authChangePasswordRoute
   '/loggedOut': typeof authLoggedOutRoute
@@ -137,18 +159,21 @@ export interface FileRoutesByFullPath {
   '/dashboard/backstock': typeof AuthCheckDashboardBackstockRoute
   '/dashboard/employees': typeof AuthCheckDashboardEmployeesRoute
   '/dashboard/home': typeof AuthCheckDashboardHomeRoute
-  '/dashboard/menu': typeof AuthCheckDashboardMenuRoute
   '/dashboard/settings': typeof AuthCheckDashboardSettingsRoute
   '/dashboard/calculate-statement': typeof AuthCheckDashboardFinancesCalculateStatementRoute
   '/dashboard/statement-history': typeof AuthCheckDashboardFinancesStatementHistoryRoute
+  '/dashboard/proteins': typeof AuthCheckDashboardMenuProteinsRoute
   '/dashboard/order-history': typeof AuthCheckDashboardOrdersOrderHistoryRoute
   '/dashboard/process-order': typeof AuthCheckDashboardOrdersProcessOrderRoute
+  '/dashboard/cook-sheet': typeof AuthCheckDashboardTemplatesCookSheetRoute
   '/dashboard/pull-list': typeof AuthCheckDashboardTemplatesPullListRoute
+  '/dashboard/shop-sheet': typeof AuthCheckDashboardTemplatesShopSheetRoute
   '/dashboard/create-timecards': typeof AuthCheckDashboardTimecardsCreateTimecardsRoute
   '/dashboard/timecard-history': typeof AuthCheckDashboardTimecardsTimecardHistoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/test': typeof TestRoute
   '/dashboard': typeof AuthCheckDashboardRouteRouteWithChildren
   '/changePassword': typeof authChangePasswordRoute
   '/loggedOut': typeof authLoggedOutRoute
@@ -156,13 +181,15 @@ export interface FileRoutesByTo {
   '/dashboard/backstock': typeof AuthCheckDashboardBackstockRoute
   '/dashboard/employees': typeof AuthCheckDashboardEmployeesRoute
   '/dashboard/home': typeof AuthCheckDashboardHomeRoute
-  '/dashboard/menu': typeof AuthCheckDashboardMenuRoute
   '/dashboard/settings': typeof AuthCheckDashboardSettingsRoute
   '/dashboard/calculate-statement': typeof AuthCheckDashboardFinancesCalculateStatementRoute
   '/dashboard/statement-history': typeof AuthCheckDashboardFinancesStatementHistoryRoute
+  '/dashboard/proteins': typeof AuthCheckDashboardMenuProteinsRoute
   '/dashboard/order-history': typeof AuthCheckDashboardOrdersOrderHistoryRoute
   '/dashboard/process-order': typeof AuthCheckDashboardOrdersProcessOrderRoute
+  '/dashboard/cook-sheet': typeof AuthCheckDashboardTemplatesCookSheetRoute
   '/dashboard/pull-list': typeof AuthCheckDashboardTemplatesPullListRoute
+  '/dashboard/shop-sheet': typeof AuthCheckDashboardTemplatesShopSheetRoute
   '/dashboard/create-timecards': typeof AuthCheckDashboardTimecardsCreateTimecardsRoute
   '/dashboard/timecard-history': typeof AuthCheckDashboardTimecardsTimecardHistoryRoute
 }
@@ -170,6 +197,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authCheck': typeof AuthCheckRouteRouteWithChildren
+  '/test': typeof TestRoute
   '/_authCheck/dashboard': typeof AuthCheckDashboardRouteRouteWithChildren
   '/(auth)/changePassword': typeof authChangePasswordRoute
   '/(auth)/loggedOut': typeof authLoggedOutRoute
@@ -177,13 +205,15 @@ export interface FileRoutesById {
   '/_authCheck/dashboard/backstock': typeof AuthCheckDashboardBackstockRoute
   '/_authCheck/dashboard/employees': typeof AuthCheckDashboardEmployeesRoute
   '/_authCheck/dashboard/home': typeof AuthCheckDashboardHomeRoute
-  '/_authCheck/dashboard/menu': typeof AuthCheckDashboardMenuRoute
   '/_authCheck/dashboard/settings': typeof AuthCheckDashboardSettingsRoute
   '/_authCheck/dashboard/_finances/calculate-statement': typeof AuthCheckDashboardFinancesCalculateStatementRoute
   '/_authCheck/dashboard/_finances/statement-history': typeof AuthCheckDashboardFinancesStatementHistoryRoute
+  '/_authCheck/dashboard/_menu/proteins': typeof AuthCheckDashboardMenuProteinsRoute
   '/_authCheck/dashboard/_orders/order-history': typeof AuthCheckDashboardOrdersOrderHistoryRoute
   '/_authCheck/dashboard/_orders/process-order': typeof AuthCheckDashboardOrdersProcessOrderRoute
+  '/_authCheck/dashboard/_templates/cook-sheet': typeof AuthCheckDashboardTemplatesCookSheetRoute
   '/_authCheck/dashboard/_templates/pull-list': typeof AuthCheckDashboardTemplatesPullListRoute
+  '/_authCheck/dashboard/_templates/shop-sheet': typeof AuthCheckDashboardTemplatesShopSheetRoute
   '/_authCheck/dashboard/_timecards/create-timecards': typeof AuthCheckDashboardTimecardsCreateTimecardsRoute
   '/_authCheck/dashboard/_timecards/timecard-history': typeof AuthCheckDashboardTimecardsTimecardHistoryRoute
 }
@@ -191,6 +221,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/test'
     | '/dashboard'
     | '/changePassword'
     | '/loggedOut'
@@ -198,18 +229,21 @@ export interface FileRouteTypes {
     | '/dashboard/backstock'
     | '/dashboard/employees'
     | '/dashboard/home'
-    | '/dashboard/menu'
     | '/dashboard/settings'
     | '/dashboard/calculate-statement'
     | '/dashboard/statement-history'
+    | '/dashboard/proteins'
     | '/dashboard/order-history'
     | '/dashboard/process-order'
+    | '/dashboard/cook-sheet'
     | '/dashboard/pull-list'
+    | '/dashboard/shop-sheet'
     | '/dashboard/create-timecards'
     | '/dashboard/timecard-history'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/test'
     | '/dashboard'
     | '/changePassword'
     | '/loggedOut'
@@ -217,19 +251,22 @@ export interface FileRouteTypes {
     | '/dashboard/backstock'
     | '/dashboard/employees'
     | '/dashboard/home'
-    | '/dashboard/menu'
     | '/dashboard/settings'
     | '/dashboard/calculate-statement'
     | '/dashboard/statement-history'
+    | '/dashboard/proteins'
     | '/dashboard/order-history'
     | '/dashboard/process-order'
+    | '/dashboard/cook-sheet'
     | '/dashboard/pull-list'
+    | '/dashboard/shop-sheet'
     | '/dashboard/create-timecards'
     | '/dashboard/timecard-history'
   id:
     | '__root__'
     | '/'
     | '/_authCheck'
+    | '/test'
     | '/_authCheck/dashboard'
     | '/(auth)/changePassword'
     | '/(auth)/loggedOut'
@@ -237,13 +274,15 @@ export interface FileRouteTypes {
     | '/_authCheck/dashboard/backstock'
     | '/_authCheck/dashboard/employees'
     | '/_authCheck/dashboard/home'
-    | '/_authCheck/dashboard/menu'
     | '/_authCheck/dashboard/settings'
     | '/_authCheck/dashboard/_finances/calculate-statement'
     | '/_authCheck/dashboard/_finances/statement-history'
+    | '/_authCheck/dashboard/_menu/proteins'
     | '/_authCheck/dashboard/_orders/order-history'
     | '/_authCheck/dashboard/_orders/process-order'
+    | '/_authCheck/dashboard/_templates/cook-sheet'
     | '/_authCheck/dashboard/_templates/pull-list'
+    | '/_authCheck/dashboard/_templates/shop-sheet'
     | '/_authCheck/dashboard/_timecards/create-timecards'
     | '/_authCheck/dashboard/_timecards/timecard-history'
   fileRoutesById: FileRoutesById
@@ -251,6 +290,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthCheckRouteRoute: typeof AuthCheckRouteRouteWithChildren
+  TestRoute: typeof TestRoute
   authChangePasswordRoute: typeof authChangePasswordRoute
   authLoggedOutRoute: typeof authLoggedOutRoute
   authResetPasswordRoute: typeof authResetPasswordRoute
@@ -258,6 +298,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/test': {
+      id: '/test'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof TestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authCheck': {
       id: '/_authCheck'
       path: ''
@@ -307,13 +354,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCheckDashboardSettingsRouteImport
       parentRoute: typeof AuthCheckDashboardRouteRoute
     }
-    '/_authCheck/dashboard/menu': {
-      id: '/_authCheck/dashboard/menu'
-      path: '/menu'
-      fullPath: '/dashboard/menu'
-      preLoaderRoute: typeof AuthCheckDashboardMenuRouteImport
-      parentRoute: typeof AuthCheckDashboardRouteRoute
-    }
     '/_authCheck/dashboard/home': {
       id: '/_authCheck/dashboard/home'
       path: '/home'
@@ -349,11 +389,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCheckDashboardTimecardsCreateTimecardsRouteImport
       parentRoute: typeof AuthCheckDashboardRouteRoute
     }
+    '/_authCheck/dashboard/_templates/shop-sheet': {
+      id: '/_authCheck/dashboard/_templates/shop-sheet'
+      path: '/shop-sheet'
+      fullPath: '/dashboard/shop-sheet'
+      preLoaderRoute: typeof AuthCheckDashboardTemplatesShopSheetRouteImport
+      parentRoute: typeof AuthCheckDashboardRouteRoute
+    }
     '/_authCheck/dashboard/_templates/pull-list': {
       id: '/_authCheck/dashboard/_templates/pull-list'
       path: '/pull-list'
       fullPath: '/dashboard/pull-list'
       preLoaderRoute: typeof AuthCheckDashboardTemplatesPullListRouteImport
+      parentRoute: typeof AuthCheckDashboardRouteRoute
+    }
+    '/_authCheck/dashboard/_templates/cook-sheet': {
+      id: '/_authCheck/dashboard/_templates/cook-sheet'
+      path: '/cook-sheet'
+      fullPath: '/dashboard/cook-sheet'
+      preLoaderRoute: typeof AuthCheckDashboardTemplatesCookSheetRouteImport
       parentRoute: typeof AuthCheckDashboardRouteRoute
     }
     '/_authCheck/dashboard/_orders/process-order': {
@@ -368,6 +422,13 @@ declare module '@tanstack/react-router' {
       path: '/order-history'
       fullPath: '/dashboard/order-history'
       preLoaderRoute: typeof AuthCheckDashboardOrdersOrderHistoryRouteImport
+      parentRoute: typeof AuthCheckDashboardRouteRoute
+    }
+    '/_authCheck/dashboard/_menu/proteins': {
+      id: '/_authCheck/dashboard/_menu/proteins'
+      path: '/proteins'
+      fullPath: '/dashboard/proteins'
+      preLoaderRoute: typeof AuthCheckDashboardMenuProteinsRouteImport
       parentRoute: typeof AuthCheckDashboardRouteRoute
     }
     '/_authCheck/dashboard/_finances/statement-history': {
@@ -391,13 +452,15 @@ interface AuthCheckDashboardRouteRouteChildren {
   AuthCheckDashboardBackstockRoute: typeof AuthCheckDashboardBackstockRoute
   AuthCheckDashboardEmployeesRoute: typeof AuthCheckDashboardEmployeesRoute
   AuthCheckDashboardHomeRoute: typeof AuthCheckDashboardHomeRoute
-  AuthCheckDashboardMenuRoute: typeof AuthCheckDashboardMenuRoute
   AuthCheckDashboardSettingsRoute: typeof AuthCheckDashboardSettingsRoute
   AuthCheckDashboardFinancesCalculateStatementRoute: typeof AuthCheckDashboardFinancesCalculateStatementRoute
   AuthCheckDashboardFinancesStatementHistoryRoute: typeof AuthCheckDashboardFinancesStatementHistoryRoute
+  AuthCheckDashboardMenuProteinsRoute: typeof AuthCheckDashboardMenuProteinsRoute
   AuthCheckDashboardOrdersOrderHistoryRoute: typeof AuthCheckDashboardOrdersOrderHistoryRoute
   AuthCheckDashboardOrdersProcessOrderRoute: typeof AuthCheckDashboardOrdersProcessOrderRoute
+  AuthCheckDashboardTemplatesCookSheetRoute: typeof AuthCheckDashboardTemplatesCookSheetRoute
   AuthCheckDashboardTemplatesPullListRoute: typeof AuthCheckDashboardTemplatesPullListRoute
+  AuthCheckDashboardTemplatesShopSheetRoute: typeof AuthCheckDashboardTemplatesShopSheetRoute
   AuthCheckDashboardTimecardsCreateTimecardsRoute: typeof AuthCheckDashboardTimecardsCreateTimecardsRoute
   AuthCheckDashboardTimecardsTimecardHistoryRoute: typeof AuthCheckDashboardTimecardsTimecardHistoryRoute
 }
@@ -407,18 +470,22 @@ const AuthCheckDashboardRouteRouteChildren: AuthCheckDashboardRouteRouteChildren
     AuthCheckDashboardBackstockRoute: AuthCheckDashboardBackstockRoute,
     AuthCheckDashboardEmployeesRoute: AuthCheckDashboardEmployeesRoute,
     AuthCheckDashboardHomeRoute: AuthCheckDashboardHomeRoute,
-    AuthCheckDashboardMenuRoute: AuthCheckDashboardMenuRoute,
     AuthCheckDashboardSettingsRoute: AuthCheckDashboardSettingsRoute,
     AuthCheckDashboardFinancesCalculateStatementRoute:
       AuthCheckDashboardFinancesCalculateStatementRoute,
     AuthCheckDashboardFinancesStatementHistoryRoute:
       AuthCheckDashboardFinancesStatementHistoryRoute,
+    AuthCheckDashboardMenuProteinsRoute: AuthCheckDashboardMenuProteinsRoute,
     AuthCheckDashboardOrdersOrderHistoryRoute:
       AuthCheckDashboardOrdersOrderHistoryRoute,
     AuthCheckDashboardOrdersProcessOrderRoute:
       AuthCheckDashboardOrdersProcessOrderRoute,
+    AuthCheckDashboardTemplatesCookSheetRoute:
+      AuthCheckDashboardTemplatesCookSheetRoute,
     AuthCheckDashboardTemplatesPullListRoute:
       AuthCheckDashboardTemplatesPullListRoute,
+    AuthCheckDashboardTemplatesShopSheetRoute:
+      AuthCheckDashboardTemplatesShopSheetRoute,
     AuthCheckDashboardTimecardsCreateTimecardsRoute:
       AuthCheckDashboardTimecardsCreateTimecardsRoute,
     AuthCheckDashboardTimecardsTimecardHistoryRoute:
@@ -445,6 +512,7 @@ const AuthCheckRouteRouteWithChildren = AuthCheckRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthCheckRouteRoute: AuthCheckRouteRouteWithChildren,
+  TestRoute: TestRoute,
   authChangePasswordRoute: authChangePasswordRoute,
   authLoggedOutRoute: authLoggedOutRoute,
   authResetPasswordRoute: authResetPasswordRoute,

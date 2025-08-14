@@ -45,10 +45,9 @@ async function updatePullList({
   const updateErrors = updateResults.filter((result) => result.error);
 
   if (updateErrors.length > 0) {
-    console.warn("Errors updating the pull list rows");
     updateErrors.forEach((error) => console.warn(error));
 
-    throw new Error("Errors encountered updating the pull list rows");
+    throw new Error("Errors updating the pull list rows");
   }
 
   const updatedPullList = updateResults.map((result) => snakeToCamel<PullListRow>(result.data));

@@ -7,7 +7,10 @@ export default async function fetchReportUrl(info: OrderReportInfo): Promise<str
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(info),
+    body: JSON.stringify({
+      ...info,
+      shopSheetRows: Array.from(info.shopSheetRows)
+    }),
   });
 
   if (!response.ok) {

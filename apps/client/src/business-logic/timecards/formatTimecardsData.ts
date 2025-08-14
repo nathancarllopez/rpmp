@@ -1,6 +1,6 @@
-import type { TimecardDisplayValues, TimecardValues } from "../types/types";
+import type { TimecardDisplayValues, TimecardValues } from "../../types/types";
 
-export default function formatTimecardsData(timecardsData: TimecardValues[]): TimecardDisplayValues[] {
+export function formatTimecardsData(timecardsData: TimecardValues[]): TimecardDisplayValues[] {
   const formatAmount = (amount: number | "") => `$${Number(amount).toFixed(2)}`;
   const formatTime = (milTime: string) => {
     if (!milTime) return "";

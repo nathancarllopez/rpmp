@@ -13,7 +13,6 @@ import {
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, useBlocker } from "@tanstack/react-router";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
-import classes from "./pull-list.module.css";
 import { IconGripVertical, IconTrash } from "@tabler/icons-react";
 import { useForm } from "@mantine/form";
 import { useMemo, useState } from "react";
@@ -23,6 +22,7 @@ import LoadingScreen from "../../../../components/misc/LoadingScreen";
 import { useUpdatePullListMutation } from "../../../../tanstack-query/mutations/updatePullList";
 import NavigationBlockAlert from "../../../../components/misc/NavigationBlockAlert";
 import type { PullListRow } from "../../../../types/types";
+import classes from "./templates.module.css";
 
 export const Route = createFileRoute(
   "/_authCheck/dashboard/_templates/pull-list"
@@ -159,7 +159,6 @@ function PullList() {
     <Draggable key={row.id} index={index} draggableId={row.id.toString()}>
       {(provided) => (
         <Table.Tr
-          className={classes.row}
           ref={provided.innerRef}
           {...provided.draggableProps}
         >

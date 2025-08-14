@@ -20,10 +20,11 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { useInsertBackstockMutation } from "../../tanstack-query/mutations/insertBackstock";
-import { proteinsAndFlavorsOptions } from "../../tanstack-query/queries/proteinsWithFlavors";
+// import { proteinsAndFlavorsOptions } from "../../tanstack-query/queries/proteinsWithFlavors";
 import FormWithDisable from "../misc/FormWithDisable";
 import { camelToSnake } from "../../util/key-converters";
 import type { InsertBackstockRow } from "../../types/types";
+import { proteinsOptions } from "../../tanstack-query/queries/proteins";
 
 interface AddNewModalProps {
   opened: boolean;
@@ -52,8 +53,44 @@ export default function AddNewModal({ opened, handleClose }: AddNewModalProps) {
   });
 
   const insertBackstockMutation = useInsertBackstockMutation();
-  const { data, error } = useSuspenseQuery(proteinsAndFlavorsOptions());
-  const proteinsWithFlavors = data || [];
+
+  // const { data, error } = useSuspenseQuery(proteinsAndFlavorsOptions());
+  // const proteinsWithFlavors = data || [];
+
+  const { data: proteinInfo, error: proteinFlavorError } = useSuspenseQuery({
+    ...proteinsOptions(),
+    select: (data) =>
+      data
+        .sort((a, b) => a.label.localeCompare(b.label))
+        .map((row) => {
+          const { name, label, flavors } = row;
+
+          const selectData = flavors
+            .sort((a, b) => a.label.localeCompare(b.label))
+            .map((flavorInfo) => ({
+              value: flavorInfo.name,
+              label: flavorInfo.label,
+            }));
+
+          return {
+            name,
+            label,
+            selectData,
+          };
+        }),
+  });
+
+  //   const proteinsWithFlavors: {
+  //     flavorLabels: string[];
+  //     flavorNames: string[];
+  //     proteinLabel: string;
+  //     proteinName: string;
+  //     flavors: ToCamelCase<{
+  //         name: string;
+  //         label: string;
+  //     }, {}>[];
+  // }[]
+
   const modalSize = 800;
 
   const handleResetFields = () => {
@@ -76,21 +113,33 @@ export default function AddNewModal({ opened, handleClose }: AddNewModalProps) {
     </Group>
   );
 
-  if (error || data.length === 0) {
+  if (proteinFlavorError) {
     return (
       <Modal opened={opened} onClose={handleClose} size={modalSize}>
         <ModalHeader />
         <Paper>
           <Text>Error occurred while fetching protein/flavor data</Text>
-          {error ? (
-            <Text>{error.message}</Text>
-          ) : (
-            <Text>No proteins and flavors returned</Text>
-          )}
+          <Text>{proteinFlavorError.message}</Text>
         </Paper>
       </Modal>
     );
   }
+
+  // if (error || data.length === 0) {
+  //   return (
+  //     <Modal opened={opened} onClose={handleClose} size={modalSize}>
+  //       <ModalHeader />
+  //       <Paper>
+  //         <Text>Error occurred while fetching protein/flavor data</Text>
+  //         {error ? (
+  //           <Text>{error.message}</Text>
+  //         ) : (
+  //           <Text>No proteins and flavors returned</Text>
+  //         )}
+  //       </Paper>
+  //     </Modal>
+  //   );
+  // }
 
   const handleAddField = () => {
     const newKey = count + 1;
@@ -120,10 +169,14 @@ export default function AddNewModal({ opened, handleClose }: AddNewModalProps) {
     <Group key={item.key} mb={"md"} justify="space-between">
       <Select
         placeholder="Protein"
-        data={proteinsWithFlavors.map((row) => ({
-          value: row.proteinName,
-          label: row.proteinLabel,
+        data={proteinInfo.map((info) => ({
+          value: info.name,
+          label: info.label
         }))}
+        // data={proteinsWithFlavors.map((row) => ({
+        //   value: row.proteinName,
+        //   label: row.proteinLabel,
+        // }))}
         searchable
         required
         key={form.key(`newBackstock.${index}.protein`)}
@@ -141,8 +194,11 @@ export default function AddNewModal({ opened, handleClose }: AddNewModalProps) {
               return copy;
             }
 
-            const proteinData = proteinsWithFlavors.find(
-              (pData) => pData.proteinName === selectedProtein
+            // const proteinData = proteinsWithFlavors.find(
+            //   (pData) => pData.proteinName === selectedProtein
+            // );
+            const proteinData = proteinInfo.find(
+              (info) => info.name === selectedProtein
             );
             if (!proteinData) {
               throw new Error(
@@ -150,12 +206,14 @@ export default function AddNewModal({ opened, handleClose }: AddNewModalProps) {
               );
             }
 
-            copy[item.key] = proteinData.flavors
-              ? proteinData.flavors.map((fData) => ({
-                  value: fData.name,
-                  label: fData.label,
-                }))
-              : null;
+            // copy[item.key] = proteinData.flavors
+            //   ? proteinData.flavors.map((fData) => ({
+            //       value: fData.name,
+            //       label: fData.label,
+            //     }))
+            //   : null;
+            copy[item.key] = proteinData.selectData
+
             return copy;
           });
         }}

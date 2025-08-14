@@ -1,6 +1,6 @@
 import {
   IconBooks,
-  // IconMeat,
+  IconMeat,
   IconReceiptDollar,
   IconSnowflake,
   IconTemplate,
@@ -14,7 +14,6 @@ export const navbarInfo: NavbarInfo[] = [
     id: "orders",
     label: "Orders",
     icon: <IconToolsKitchen3 />,
-    // href: "/dashboard/orders",
     hasPermission: ["admin", "owner", "manager"],
     sublinks: [
       {
@@ -40,7 +39,6 @@ export const navbarInfo: NavbarInfo[] = [
     id: "timecards",
     label: "Timecards",
     icon: <IconReceiptDollar />,
-    // href: "/dashboard/timecards",
     hasPermission: ["admin", 'owner', "manager", "employee"],
     sublinks: [
       {
@@ -59,7 +57,6 @@ export const navbarInfo: NavbarInfo[] = [
     id: "finances",
     label: "Finances",
     icon: <IconBooks />,
-    // href: "/dashboard/finances",
     hasPermission: ["admin", 'owner'],
     sublinks: [
       {
@@ -74,13 +71,20 @@ export const navbarInfo: NavbarInfo[] = [
       },
     ],
   },
-  // {
-  //   id: "menu",
-  //   label: "Menu",
-  //   icon: <IconMeat />,
-  //   href: "/dashboard/menu",
-  //   hasPermission: ["admin", 'owner'],
-  // },
+  {
+    id: "menu",
+    label: "Menu",
+    icon: <IconMeat />,
+    // href: "/dashboard/menu",
+    hasPermission: ["admin", 'owner'],
+    sublinks: [
+      {
+        id: 'proteins',
+        label: "Proteins",
+        href: "/dashboard/proteins"
+      }
+    ]
+  },
   {
     id: "employees",
     label: "Employees",

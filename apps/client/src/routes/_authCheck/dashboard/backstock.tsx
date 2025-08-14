@@ -21,10 +21,13 @@ import AddNewModal from "../../../components/backstock/AddNewModal";
 import EditSelectedModal from "../../../components/backstock/EditSelectedModal";
 import BackstockTable from "../../../components/backstock/BackstockTable";
 import type { SelectedBackstockRow, UpdateBackstockInfo } from "../../../types/types";
+import { proteinsOptions } from "../../../tanstack-query/queries/proteins";
+import { resetBackstock } from "../../../business-logic/resetBackstock";
 
 export const Route = createFileRoute("/_authCheck/dashboard/backstock")({
   loader: ({ context: { queryClient } }) => {
     queryClient.ensureQueryData(backstockOptions());
+    queryClient.ensureQueryData(proteinsOptions());
   },
   pendingComponent: LoadingScreen,
   component: Backstock,
@@ -177,6 +180,9 @@ function Backstock() {
           <Text>{error.message}</Text>
         </Paper>
       )}
+
+      {/* This button is only for testing and will be removed for production */}
+      <Button onClick={resetBackstock}>Reset Backstock</Button>
     </Stack>
   );
 }

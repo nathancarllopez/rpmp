@@ -12,7 +12,7 @@ export function veggieCarbInfoOptions() {
 }
 
 async function getVeggieCarbInfo(): Promise<VeggieCarbInfoRow[]> {
-  const { data, error } = await supabase.from("veggie_carb_info").select();
+  const { data, error } = await supabase.from("veggies_carbs").select();
 
   if (error) {
     console.warn("Failed to fetch veggies and carbs");

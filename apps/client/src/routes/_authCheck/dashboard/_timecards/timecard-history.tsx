@@ -4,8 +4,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { timecardHistoryOptions } from "../../../../tanstack-query/queries/timecardHistory";
 import LoadingScreen from "../../../../components/misc/LoadingScreen";
-import formatTimecardsData from "../../../../util/formatTimecardsData";
 import fetchTimecardsUrl from "../../../../api/fetchTimecardsUrl";
+import { formatTimecardsData } from "../../../../business-logic/timecards/formatTimecardsData";
 
 export const Route = createFileRoute(
   "/_authCheck/dashboard/_timecards/timecard-history"
