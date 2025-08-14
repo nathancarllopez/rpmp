@@ -1,7 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../QueryClientProvider";
-import { supabase } from "../../supabase/client";
 import type { UpdateBackstockInfo } from "../../types/types";
+import { supabase } from "../../supabase/client";
+import type { PostgrestError } from "@supabase/supabase-js";
 
 export function useUpdateBackstockMutation() {
   return useMutation({
@@ -10,10 +11,23 @@ export function useUpdateBackstockMutation() {
   });
 }
 
-async function updateBackstock(updateInfo: UpdateBackstockInfo): Promise<UpdateBackstockInfo> {
-  const { data, error } = await supabase.rpc("update_backstock_rows", {
-    updates: updateInfo,
-  });
+type RPCReturnType = {
+  claimed: boolean
+  created_at: string
+  deleted_on: string
+  id: number
+  weight: number
+}[] | null;
+
+async function updateBackstock(
+  updateInfo: UpdateBackstockInfo
+): Promise<UpdateBackstockInfo> {
+  const { data, error }: { data: RPCReturnType, error: PostgrestError | null } = await supabase.rpc(
+    "update_backstock_rows",
+    {
+      updates: updateInfo,
+    }
+  );
 
   if (error) {
     console.log(error);
@@ -21,6 +35,10 @@ async function updateBackstock(updateInfo: UpdateBackstockInfo): Promise<UpdateB
     console.warn(error.message);
 
     throw error;
+  }
+
+  if (data === null) {
+    throw new Error(`No data returned after updating backstock`)
   }
 
   const undoUpdateInfo = data.reduce((undoInfo, row) => {
@@ -31,7 +49,7 @@ async function updateBackstock(updateInfo: UpdateBackstockInfo): Promise<UpdateB
       created_at: row.created_at,
       deleted_on: row.deleted_on,
       claimed: row.claimed,
-    }
+    };
 
     return undoInfo;
   }, {} as UpdateBackstockInfo);

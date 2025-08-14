@@ -12,6 +12,8 @@ export default function ProteinUpdateForm({ protein }: ProteinUpdateFormProps) {
     initialValues: protein,
   });
 
+  console.log(form);
+
   return (
     <Stack>
       <div>helllo</div>

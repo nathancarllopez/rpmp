@@ -4,7 +4,7 @@ import LoadingScreen from "../../../../components/misc/LoadingScreen";
 import { proteinsOptions } from "../../../../tanstack-query/queries/proteins";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import ProteinDisplay from "../../../../components/menu/ProteinDisplay";
-import { proteinsAndFlavorsOptions } from "../../../../tanstack-query/queries/proteinsWithFlavors";
+// import { proteinsAndFlavorsOptions } from "../../../../tanstack-query/queries/proteinsWithFlavors";
 
 export const Route = createFileRoute("/_authCheck/dashboard/_menu/proteins")({
   loader: ({ context: { queryClient } }) => {
@@ -18,23 +18,30 @@ function Proteins() {
   const { data: proteinData, error: proteinError } =
     useSuspenseQuery(proteinsOptions());
 
-  const { data: proteinWithFlavorsData, error: proteinWithFlavorsError } =
-    useSuspenseQuery(proteinsAndFlavorsOptions());
+  // const { data: proteinWithFlavorsData, error: proteinWithFlavorsError } =
+  //   useSuspenseQuery(proteinsAndFlavorsOptions());
+
+  // const displayInfo = proteinData.map((pRow) => {
+  //   const withFlavors = proteinWithFlavorsData.find(
+  //     (pfRow) => pfRow.proteinName === pRow.name
+  //   );
+
+  //   const flavorLabels =
+  //     withFlavors !== undefined
+  //       ? withFlavors.flavors.map(({ label }) => label)
+  //       : [];
+
+  //   return { ...pRow, flavorLabels };
+  // });
 
   const displayInfo = proteinData.map((pRow) => {
-    const withFlavors = proteinWithFlavorsData.find(
-      (pfRow) => pfRow.proteinName === pRow.name
-    );
-
-    const flavorLabels =
-      withFlavors !== undefined
-        ? withFlavors.flavors.map(({ label }) => label)
-        : [];
+    const flavorLabels = pRow.flavors.map((info) => info.label);
 
     return { ...pRow, flavorLabels };
   });
 
-  const errors = [proteinError, proteinWithFlavorsError].filter(
+  // const errors = [proteinError, proteinWithFlavorsError].filter(
+  const errors = [proteinError].filter(
     (error) => !!error
   );
   if (errors.length > 0) {
